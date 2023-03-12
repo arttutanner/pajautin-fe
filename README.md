@@ -1,0 +1,2 @@
+# pajautin-fe
+Johtajatulien pajavalintatyökalu

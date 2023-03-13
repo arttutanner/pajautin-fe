@@ -1,34 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import "./App.css";
+import WorkshopList from "./components/WorkshopList";
+import { Workshop } from "./types/Workshop";
 
 function App() {
-  const [count, setCount] = useState(100)
+  const [count, setCount] = useState(100);
+
+  let wsItems: Workshop[] = [
+    {
+      id: 1,
+      name: "Pysäytetään ilmastonmuutos",
+      description: "Ilmastonmuutos loppuu nyt kun muutetaan se takas jne.",
+      level: 2,
+    },
+    {
+      id: 2,
+      name: "Saavutetaan maailmanrauha",
+      description: "Ammutaan kaikki aseet mäsäksi, niin sillä se loppuu.",
+      level: 1,
+    },
+    {
+      id: 3,
+      name: "Poistetaan köyhyys",
+      description: "Annetaan kaikille ihmisille miljaardi euroa.",
+      level: 3,
+    },
+    {
+      id: 4,
+      name: "Parannetaan sairaudet",
+      description:
+        "Kehitettään semmottii erikoislääke, joka parantaa kaikki sairaudet.",
+      level: 5,
+    },
+  ];
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <WorkshopList items={wsItems} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

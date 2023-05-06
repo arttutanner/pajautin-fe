@@ -3,43 +3,60 @@ import reactLogo from "./assets/react.svg";
 import "./App.css";
 import WorkshopList from "./components/WorkshopList";
 import { Workshop } from "./types/Workshop";
+import Filterbar from "./components/Filterbar";
+
+import { styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import { WorkshopFilter } from "./types/WorkshopFilter";
+import { wsItems } from "./workshopdata";
+import Container from "@mui/material/Container";
+import PajautinAppBar from "./components/PajautinAppBar";
 
 function App() {
-  const [count, setCount] = useState(100);
+  let wsFilter: WorkshopFilter = {
+    freetext: "",
+    levels: [],
+    tags: [],
+    types: [],
+  };
 
-  let wsItems: Workshop[] = [
-    {
-      id: 1,
-      name: "Pysäytetään ilmastonmuutos",
-      description: "Ilmastonmuutos loppuu nyt kun muutetaan se takas jne.",
-      level: 2,
-    },
-    {
-      id: 2,
-      name: "Saavutetaan maailmanrauha",
-      description: "Ammutaan kaikki aseet mäsäksi, niin sillä se loppuu.",
-      level: 1,
-    },
-    {
-      id: 3,
-      name: "Poistetaan köyhyys",
-      description: "Annetaan kaikille ihmisille miljaardi euroa.",
-      level: 3,
-    },
-    {
-      id: 4,
-      name: "Parannetaan sairaudet",
-      description:
-        "Kehitettään semmottii erikoislääke, joka parantaa kaikki sairaudet.",
-      level: 5,
-    },
-  ];
+  const [filters, setFilters] = useState<WorkshopFilter>(wsFilter);
 
   return (
     <div className="App">
-      <WorkshopList items={wsItems} />
+      <PajautinAppBar />
+      <Container maxWidth="lg">
+        <Grid container>
+          <Grid item lg={2}>
+            <Filterbar setFilters={setFilters} />
+          </Grid>
+          <Grid item xs={12} lg={6}>
+            <WorkshopList filter={filters} items={wsItems} />
+          </Grid>
+        </Grid>
+      </Container>
     </div>
   );
 }
 
+function hieno() {
+  console.log("MarjoLiisa");
+}
+
 export default App;
+
+/*
+    <div className="App">
+      <Container>
+        <Row>
+          <Col>
+            <Filterbar setFilters={setFilters} />
+          </Col>
+          <Col xs={12} lg={6}>
+            <WorkshopList filter={filters} items={wsItems} />
+          </Col>
+        </Row>
+      </Container>
+    </div>
+    */

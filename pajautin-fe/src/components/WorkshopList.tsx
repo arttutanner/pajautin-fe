@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Workshop } from "../types/Workshop";
 import WorkshopItem from "./WorkshopItem";
+import Stack from "@mui/material/Stack";
+
+import { WorkshopFilter } from "../types/WorkshopFilter";
 
 interface Props {
   items: Workshop[];
+  filter: WorkshopFilter;
 }
 
-function WorkshopList({ items }: Props) {
+function WorkshopList({ items, filter }: Props) {
   return (
-    <>
-      <div>WorkshopList</div>
+    <Stack gap={3}>
       {items.map((item) => (
         <WorkshopItem key={item.id} item={item} />
       ))}
-    </>
+    </Stack>
   );
 }
 

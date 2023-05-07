@@ -11,8 +11,18 @@ import { IconButton } from "@mui/material";
 
 interface Props {
   item: Workshop;
+  addedItems: Workshop[];
+  setAddedItems: (items: Workshop[]) => void;
 }
-function WorkshopItem({ item }: Props) {
+function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
+  let itemAlreadyAdded = (item: Workshop) => {
+    return addedItems.map((i) => i.id).includes(item.id);
+  };
+
+  let addToAdded = (item: Workshop) => {
+    setAddedItems([...addedItems, item]);
+  };
+
   return (
     <Card>
       <CardHeader
@@ -20,7 +30,13 @@ function WorkshopItem({ item }: Props) {
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe"></Avatar>
         }
         action={
-          <IconButton aria-label="settings">
+          <IconButton
+            disabled={itemAlreadyAdded(item)}
+            aria-label="settings"
+            onClick={() => {
+              addToAdded(item);
+            }}
+          >
             <AddCircle />
           </IconButton>
         }

@@ -22,6 +22,13 @@ function App() {
   };
 
   const [filters, setFilters] = useState<WorkshopFilter>(wsFilter);
+  let ai: Workshop[] = [];
+  ai.push(wsItems[4]);
+  ai.push(wsItems[5]);
+
+  const [addedItems, setAddedItems] = useState<Workshop[]>(ai);
+
+  // const [addedItems, setAddedItems] = useState<Workshop[]>([...wsItems]);
 
   return (
     <div className="App">
@@ -32,10 +39,18 @@ function App() {
             <Filterbar setFilters={setFilters} />
           </Grid>
           <Grid item xs={12} lg={6}>
-            <WorkshopList filter={filters} items={wsItems} />
+            <WorkshopList
+              filter={filters}
+              items={wsItems}
+              addedItems={addedItems}
+              setAddedItems={setAddedItems}
+            />
           </Grid>
           <Grid item xs={12} lg={3}>
-            <SelectedWorkshops />
+            <SelectedWorkshops
+              addedItems={addedItems}
+              setAddedItems={setAddedItems}
+            />
           </Grid>
         </Grid>
       </Container>

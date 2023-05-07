@@ -22,12 +22,6 @@ function Filterbar({ setFilters }: Props) {
       filters.freetext = value;
     }
 
-    //filters.freetext = "freefree" + value + ":" + ct;
-    //console.log("Tags len" + filters.tags.length);
-    //filters.tags.push(value + ":" + ct);
-    //console.log("val:" + value + " ct:" + ct);
-
-    //console.log("Filters.freetext:" + filters.freetext);
     setFilters({ ...filters });
   };
 

@@ -8,6 +8,8 @@ import { WorkshopFilter } from "../types/WorkshopFilter";
 interface Props {
   items: Workshop[];
   filter: WorkshopFilter;
+  addedItems: Workshop[];
+  setAddedItems: (items: Workshop[]) => void;
 }
 
 function doFilter(filter: WorkshopFilter, ws: Workshop) {
@@ -23,13 +25,18 @@ function doFilter(filter: WorkshopFilter, ws: Workshop) {
   return matches;
 }
 
-function WorkshopList({ items, filter }: Props) {
+function WorkshopList({ items, filter, addedItems, setAddedItems }: Props) {
   return (
     <Stack gap={3}>
       {items
         .filter((i) => doFilter(filter, i))
         .map((item) => (
-          <WorkshopItem key={item.id} item={item} />
+          <WorkshopItem
+            key={item.id}
+            item={item}
+            addedItems={addedItems}
+            setAddedItems={setAddedItems}
+          />
         ))}
     </Stack>
   );

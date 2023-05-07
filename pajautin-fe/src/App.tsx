@@ -26,7 +26,7 @@ function App() {
   ai.push(wsItems[4]);
   ai.push(wsItems[5]);
 
-  const [addedItems, setAddedItems] = useState<Workshop[]>(ai);
+  const [addedItems, setAddedItems] = useState<Workshop[]>([]);
 
   // const [addedItems, setAddedItems] = useState<Workshop[]>([...wsItems]);
 
@@ -35,7 +35,7 @@ function App() {
       <PajautinAppBar />
       <Container maxWidth="lg">
         <Grid container spacing={2}>
-          <Grid item xs={12} lg={3}>
+          <Grid item xs={12} lg={2}>
             <Filterbar setFilters={setFilters} />
           </Grid>
           <Grid item xs={12} lg={6}>
@@ -46,7 +46,7 @@ function App() {
               setAddedItems={setAddedItems}
             />
           </Grid>
-          <Grid item xs={12} lg={3}>
+          <Grid item xs={12} lg={4}>
             <SelectedWorkshops
               addedItems={addedItems}
               setAddedItems={setAddedItems}

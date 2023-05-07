@@ -27,7 +27,9 @@ function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
     <Card>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe"></Avatar>
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+            P
+          </Avatar>
         }
         action={
           <IconButton

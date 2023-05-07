@@ -6,12 +6,12 @@ import { Workshop } from "./types/Workshop";
 import Filterbar from "./components/Filterbar";
 
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { WorkshopFilter } from "./types/WorkshopFilter";
 import { wsItems } from "./workshopdata";
 import Container from "@mui/material/Container";
 import PajautinAppBar from "./components/PajautinAppBar";
+import SelectedWorkshops from "./components/SelectedWorkshops";
 
 function App() {
   let wsFilter: WorkshopFilter = {
@@ -27,12 +27,15 @@ function App() {
     <div className="App">
       <PajautinAppBar />
       <Container maxWidth="lg">
-        <Grid container>
-          <Grid item lg={2}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} lg={3}>
             <Filterbar setFilters={setFilters} />
           </Grid>
           <Grid item xs={12} lg={6}>
             <WorkshopList filter={filters} items={wsItems} />
+          </Grid>
+          <Grid item xs={12} lg={3}>
+            <SelectedWorkshops />
           </Grid>
         </Grid>
       </Container>

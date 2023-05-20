@@ -48,7 +48,7 @@ function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
       />
 
       <CardContent>
-        <img className="rounded float-left" src="ws_image_1.jpg" />
+        <img className="rounded float-left" src={item.imgUrl} />
         <Typography variant="body2">{item.description}</Typography>
       </CardContent>
     </Card>

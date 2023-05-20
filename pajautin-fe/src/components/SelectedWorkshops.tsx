@@ -2,7 +2,6 @@ import { DropResult } from "react-beautiful-dnd";
 import { Workshop } from "../types/Workshop";
 import { reorder } from "../util/draggableHelpers";
 import DraggableList from "./DragableList/DraggableList";
-import { wsItems } from "../workshopdata";
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader } from "@mui/material";
 import { render } from "react-dom";

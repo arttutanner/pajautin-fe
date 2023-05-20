@@ -13,13 +13,27 @@ interface Props {
 }
 
 function doFilter(filter: WorkshopFilter, ws: Workshop) {
-  console.log("Filter:" + filter.freetext);
-
   let matches = true;
 
+  // Match freetext in most of the fields, ignore case
   if (filter.freetext != null && filter.freetext.length > 0) {
     matches = false;
-    if (ws.name.includes(filter.freetext)) matches = true;
+    [
+      ...ws.name,
+      ws.author,
+      ws.description,
+      ws.author2,
+      ws.name2,
+      ws.description2,
+      ws.keywords,
+    ].forEach((field) => {
+      if (
+        field != null &&
+        field != undefined &&
+        field.toLowerCase().includes(filter.freetext.toLowerCase())
+      )
+        matches = true;
+    });
   }
 
   return matches;

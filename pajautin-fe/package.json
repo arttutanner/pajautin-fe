@@ -3,17 +3,19 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy":  "http://localhost:9998/",
+
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
+
   },
   "dependencies": {
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.2",
+    "axios": "^1.4.0",
     "bootstrap": "^5.2.3",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",

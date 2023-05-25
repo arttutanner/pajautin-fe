@@ -42,7 +42,7 @@ const DraggableListItem = ({
           // className={snapshot.isDragging ? classes.draggingListItem : ""}
         >
           <ListItemAvatar>
-            <Avatar>P</Avatar>
+            <Avatar>{index + 1}</Avatar>
           </ListItemAvatar>
           <ListItemText primary={item.name} secondary={item.author} />
         </ListItem>

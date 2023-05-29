@@ -1,12 +1,19 @@
 import React from "react";
+
 import { Workshop } from "../types/Workshop";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import { Avatar, CardActions, Chip, Typography } from "@mui/material";
+import {
+  Avatar,
+  CardActions,
+  Chip,
+  Container,
+  Typography,
+} from "@mui/material";
 import { TYPE_COLORS, TYPE_NAMES } from "../types/Constants";
-import { AddCircle } from "@mui/icons-material";
+import { AddCircle, ImageOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
@@ -20,6 +27,7 @@ interface Props {
 
 function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
   let itemAlreadyAdded = (item: Workshop) => {
+    if (addedItems == null) return false;
     return addedItems.map((i) => i.id).includes(item.id);
   };
 
@@ -27,10 +35,18 @@ function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
     setAddedItems([...addedItems, item]);
   };
 
-  const tags = item.keywords
-    .split(",")
-    .map((k) => k.trim().toLocaleLowerCase())
-    .filter((k) => k != "");
+  const replaceBr = (text: string) => {
+    if (text == undefined || text == null) return "";
+    return text.replaceAll(/\n/g, "<br />");
+  };
+
+  const tags =
+    item.keywords == null
+      ? []
+      : item.keywords
+          .split(",")
+          .map((k) => k.trim().toLocaleLowerCase())
+          .filter((k) => k != "");
 
   return (
     <Card>
@@ -63,28 +79,29 @@ function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
 
       <CardContent>
         <Typography variant="body2">
-          <div className="float-start m-2">
-            <img className="rounded" src={item.imgUrl} />
-            {item.id == 100 ? (
-              <>
-                <br />
-                <br />
-                <img className="rounded" src={item.imgUrl} />{" "}
-              </>
-            ) : (
-              ""
-            )}
-          </div>
-
-          {item.description}
+          {item.imgUrl != null &&
+          item.imgUrl != undefined &&
+          item.imgUrl != "" ? (
+            <div className="float-start m-2">
+              <img className="rounded" src={item.imgUrl} />
+            </div>
+          ) : (
+            ""
+          )}
+          <div
+            dangerouslySetInnerHTML={{ __html: replaceBr(item.description) }}
+          ></div>
         </Typography>
       </CardContent>
+
       {tags.length > 0 ? (
-        <p>
+        <Container>
           {tags.map((tag) => (
             <Chip key={tag} label={tag} variant="outlined" />
           ))}
-        </p>
+          <br />
+          <br />
+        </Container>
       ) : (
         ""
       )}

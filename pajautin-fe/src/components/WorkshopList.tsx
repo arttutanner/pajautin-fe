@@ -42,13 +42,18 @@ function doFilter(filter: WorkshopFilter, ws: Workshop) {
   }
 
   if (filter.tags.length > 0) {
-    let tagsInWs = ws.keywords
-      .split(",")
-      .map((k) => k.trim().toLowerCase())
-      .filter((k) => k != "");
-    filter.tags.forEach((tag) => {
-      if (!tagsInWs.includes(tag)) matchesTags = false;
-    });
+    matchesTags = false;
+    if (ws.keywords == null || ws.keywords == undefined) {
+      matchesTags = false;
+    } else {
+      let tagsInWs = ws.keywords
+        .split(",")
+        .map((k) => k.trim().toLowerCase())
+        .filter((k) => k != "");
+      filter.tags.forEach((tag) => {
+        if (tagsInWs.includes(tag)) matchesTags = true;
+      });
+    }
   }
 
   if (filter.types.length > 0) {

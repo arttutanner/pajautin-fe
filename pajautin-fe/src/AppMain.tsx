@@ -44,7 +44,7 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
       let setItems: Workshop[] = [];
       prefs.forEach((p: number) => {
         let ws = wsList.find((a) => a.id == p);
-        setItems.push(ws!);
+        if (ws != null && ws != undefined) setItems.push(ws!);
       });
       console.log("SetItems", setItems);
 

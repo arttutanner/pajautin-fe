@@ -45,7 +45,7 @@ function App() {
 
   return (
     <>
-      <PajautinAppBar />
+      <PajautinAppBar loginStatus={loginStatus} />
       {loginStatus.loggedIn ? (
         <AppMain
           loginStatus={loginStatus}

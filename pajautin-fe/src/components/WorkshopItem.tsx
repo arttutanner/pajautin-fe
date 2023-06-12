@@ -10,6 +10,7 @@ import {
   CardActions,
   Chip,
   Container,
+  Stack,
   Typography,
 } from "@mui/material";
 import { TYPE_COLORS, TYPE_NAMES } from "../types/Constants";
@@ -18,6 +19,8 @@ import { IconButton } from "@mui/material";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
+import Speech from "./Speech";
+import RegularWorkshop from "./RegularWorkshop";
 
 interface Props {
   item: Workshop;
@@ -33,11 +36,6 @@ function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
 
   let addToAdded = (item: Workshop) => {
     setAddedItems([...addedItems, item]);
-  };
-
-  const replaceBr = (text: string) => {
-    if (text == undefined || text == null) return "";
-    return text.replaceAll(/\n/g, "<br />");
   };
 
   const tags =
@@ -74,25 +72,27 @@ function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
         }
         title={item.name}
         subheader={item.author}
-        style={{ backgroundColor: "#eee" }}
+        style={{ backgroundColor: "#ddd" }}
       />
 
-      <CardContent>
-        <Typography variant="body2">
-          {item.imgUrl != null &&
-          item.imgUrl != undefined &&
-          item.imgUrl != "" ? (
-            <div className="float-start m-2">
-              <img className="rounded" src={item.imgUrl} />
-            </div>
-          ) : (
-            ""
-          )}
-          <div
-            dangerouslySetInnerHTML={{ __html: replaceBr(item.description) }}
-          ></div>
-        </Typography>
-      </CardContent>
+      {item.type == 3 ? (
+        <Stack>
+          <Speech
+            title={item.speechName1}
+            author={item.speechAuthor1}
+            description={item.speechDescription1}
+            imgUrl={item.imgUrl}
+          />
+          <Speech
+            title={item.speechName2}
+            author={item.speechAuthor2}
+            description={item.speechDescription2}
+            imgUrl={item.imgUrl2}
+          />
+        </Stack>
+      ) : (
+        <RegularWorkshop item={item} />
+      )}
 
       {tags.length > 0 ? (
         <Container>

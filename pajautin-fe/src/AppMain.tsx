@@ -16,6 +16,8 @@ import SelectedWorkshops from "./components/SelectedWorkshops";
 import { AppService } from "./services/app.service";
 import { Apps } from "@mui/icons-material";
 import { LoginStatus } from "./types/LoginStatus";
+import { Snackbar, Stack } from "@mui/material";
+import AbsenceSelector from "./components/AbsenceSelector";
 
 interface Props {
   loginStatus: LoginStatus;
@@ -30,9 +32,38 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
     tags: [],
     types: [],
   };
-
+  const [saveInfoOpen, setSaveInfoOpen] = useState<boolean>(false);
+  const [saveInfoMsg, setSaveInfoMsg] = useState<string>("");
   const [filters, setFilters] = useState<WorkshopFilter>(wsFilter);
   const [addedItems, setAddedItems] = useState<Workshop[]>([]);
+
+  const showInfoText = (info: string) => {
+    setSaveInfoMsg(info);
+    setSaveInfoOpen(true);
+  };
+
+  const setAndSaveAddedItems = (savedWorkshops: Workshop[]) => {
+    let appSrv: AppService = new AppService();
+    appSrv.setPreferences(savedWorkshops.map((i) => i.id)).then((reply) => {
+      if ((reply.status = "ok")) {
+        showInfoText("Ohjelmavalinnat tallennettu " + reply.date);
+      } else {
+        showInfoText("Virhe ohjelmavalintojen tallennuksessa");
+      }
+    });
+    setAddedItems(savedWorkshops);
+  };
+
+  const savePresence = (pres: boolean[]) => {
+    let appSrv: AppService = new AppService();
+    appSrv.setPresent(pres).then((reply) => {
+      if ((reply.status = "ok")) {
+        showInfoText("Paikallaolo tallennettu " + reply.date);
+      } else {
+        showInfoText("Virhe paikallaolon tallennuksessa");
+      }
+    });
+  };
 
   useEffect(() => {
     let appSrv: AppService = new AppService();
@@ -54,7 +85,7 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
   }, []);
 
   return (
-    <div className="App">
+    <>
       <Container
         maxWidth="xl"
         sx={{ display: { xs: "none", sm: "none", md: "none", lg: "block" } }}
@@ -68,14 +99,18 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
               filter={filters}
               items={wsList}
               addedItems={addedItems}
-              setAddedItems={setAddedItems}
+              setAddedItems={setAndSaveAddedItems}
             />
           </Grid>
           <Grid item md={4}>
-            <SelectedWorkshops
-              addedItems={addedItems}
-              setAddedItems={setAddedItems}
-            />
+            <Stack>
+              <SelectedWorkshops
+                addedItems={addedItems}
+                setAddedItems={setAndSaveAddedItems}
+              />
+              <p />
+              <AbsenceSelector savePresence={savePresence} />
+            </Stack>
           </Grid>
         </Grid>
       </Container>
@@ -97,20 +132,29 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
           <Grid item xs={12}>
             <SelectedWorkshops
               addedItems={addedItems}
-              setAddedItems={setAddedItems}
+              setAddedItems={setAndSaveAddedItems}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <AbsenceSelector savePresence={savePresence} />
           </Grid>
           <Grid item xs={12}>
             <WorkshopList
               filter={filters}
               items={wsList}
               addedItems={addedItems}
-              setAddedItems={setAddedItems}
+              setAddedItems={setAndSaveAddedItems}
             />
           </Grid>
         </Grid>
       </Container>
-    </div>
+      <Snackbar
+        open={saveInfoOpen}
+        message={saveInfoMsg}
+        autoHideDuration={2000}
+        onClose={() => setSaveInfoOpen(false)}
+      />
+    </>
   );
 }
 

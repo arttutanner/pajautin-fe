@@ -24,12 +24,15 @@ function doFilter(filter: WorkshopFilter, ws: Workshop) {
   if (filter.freetext != null && filter.freetext.length > 0) {
     matchesFreetext = false;
     [
-      ...ws.name,
+      ws.name,
       ws.author,
       ws.description,
-      ws.author2,
-      ws.name2,
-      ws.description2,
+      ws.speechAuthor1,
+      ws.speechDescription1,
+      ws.speechName1,
+      ws.speechAuthor2,
+      ws.speechDescription2,
+      ws.speechName2,
       ws.keywords,
     ].forEach((field) => {
       if (

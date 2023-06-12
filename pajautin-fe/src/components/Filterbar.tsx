@@ -113,7 +113,7 @@ function Filterbar({ setFilters, keywords }: Props) {
               " suodatin" +
               (filterCount() > 1 ? "ta" : "") +
               " käytössä."
-            : ""
+            : "Ei suodattimia."
         }
         style={{ backgroundColor: "#eef" }}
         action={
@@ -130,85 +130,87 @@ function Filterbar({ setFilters, keywords }: Props) {
 
       <Collapse in={expanded}>
         <CardContent>
-          <p>
-            {filters.freetext == "" &&
-            filters.types.length == 0 &&
-            filters.tags.length == 0 ? (
-              "Ei suodattimia."
-            ) : (
-              <p>
-                <Button variant="text" onClick={(e) => resetFilters()}>
-                  Tyhjennä
-                </Button>
-              </p>
-            )}
+          <p />
+          {filters.freetext == "" &&
+          filters.types.length == 0 &&
+          filters.tags.length == 0 ? (
+            "Ei suodattimia."
+          ) : (
+            <>
+              <Button variant="text" onClick={(e) => resetFilters()}>
+                Tyhjennä
+              </Button>
+              <br />
+            </>
+          )}
 
-            {filters.freetext != "" ? (
-              <Chip
-                key="freetext_deleteable"
-                label={"Vapaateksti: " + filters.freetext}
-                onDelete={(e) => removeFilter("freetext", null)}
-                variant="outlined"
-              />
-            ) : (
-              ""
-            )}
-
-            {filters.types.map((type) => (
-              <Chip
-                avatar={
-                  <Avatar
-                    sx={{ bgcolor: TYPE_COLORS[type - 1] }}
-                    aria-label={TYPE_NAMES[type - 1]}
-                  >
-                    {type == 1 ? (
-                      <EmojiPeopleIcon style={{ color: "white" }} />
-                    ) : (
-                      ""
-                    )}
-                    {type == 2 ? (
-                      <Diversity3Icon style={{ color: "white" }} />
-                    ) : (
-                      ""
-                    )}
-                    {type == 3 ? (
-                      <RecordVoiceOverIcon style={{ color: "white" }} />
-                    ) : (
-                      ""
-                    )}
-                  </Avatar>
-                }
-                label={TYPE_NAMES[type - 1]}
-                variant="outlined"
-                onDelete={(e) => removeFilter("type", type)}
-                key={"deltype_" + type}
-              />
-            ))}
-
-            {filters.tags.map((tag) => (
-              <Chip
-                label={tag}
-                key={"deletetag_" + tag}
-                onDelete={(e) => removeFilter("tag", tag)}
-                variant="outlined"
-              />
-            ))}
-          </p>
-          <p>
-            <h5>Vapaatekstihaku</h5>
-            <TextField
-              id="searchterm"
-              value={filters.freetext}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setFilter("freetext", event.target.value);
-              }}
-              label="Hakusana"
+          {filters.freetext != "" ? (
+            <Chip
+              key="freetext_deleteable"
+              label={"Vapaateksti: " + filters.freetext}
+              onDelete={(e) => removeFilter("freetext", null)}
               variant="outlined"
             />
-          </p>
-          <p>
-            <h5>Ohjelman tyyppi</h5>
-            {[1, 2, 3].map((type) => (
+          ) : (
+            ""
+          )}
+
+          {filters.types.map((type) => (
+            <Chip
+              avatar={
+                <Avatar
+                  sx={{ bgcolor: TYPE_COLORS[type - 1] }}
+                  aria-label={TYPE_NAMES[type - 1]}
+                >
+                  {type == 1 ? (
+                    <EmojiPeopleIcon style={{ color: "white" }} />
+                  ) : (
+                    ""
+                  )}
+                  {type == 2 ? (
+                    <Diversity3Icon style={{ color: "white" }} />
+                  ) : (
+                    ""
+                  )}
+                  {type == 3 ? (
+                    <RecordVoiceOverIcon style={{ color: "white" }} />
+                  ) : (
+                    ""
+                  )}
+                </Avatar>
+              }
+              label={TYPE_NAMES[type - 1]}
+              variant="outlined"
+              onDelete={(e) => removeFilter("type", type)}
+              key={"deltype_" + type}
+            />
+          ))}
+
+          {filters.tags.map((tag) => (
+            <Chip
+              label={tag}
+              key={"deletetag_" + tag}
+              onDelete={(e) => removeFilter("tag", tag)}
+              variant="outlined"
+            />
+          ))}
+          <p />
+          <h5>Vapaatekstihaku</h5>
+          <TextField
+            id="searchterm"
+            value={filters.freetext}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setFilter("freetext", event.target.value);
+            }}
+            label="Hakusana"
+            variant="outlined"
+          />
+          <p />
+          <h5>Ohjelman tyyppi</h5>
+          {[1, 2, 3].map((type) =>
+            filters.types.includes(type) ? (
+              ""
+            ) : (
               <Chip
                 avatar={
                   <Avatar
@@ -237,25 +239,24 @@ function Filterbar({ setFilters, keywords }: Props) {
                 onClick={(e) => setFilter("type", type)}
                 key={"type" + type}
               />
-            ))}
-          </p>
-          <p>
-            <h5>Avainsanat</h5>
-            {keywords.map((tag) =>
-              filters.tags.includes(tag) ? (
-                ""
-              ) : (
-                <Chip
-                  label={tag}
-                  key={tag}
-                  onClick={(e) => {
-                    setFilter("tag", e.currentTarget.textContent);
-                  }}
-                  variant="outlined"
-                />
-              )
-            )}
-          </p>
+            )
+          )}
+          <p />
+          <h5>Avainsanat</h5>
+          {keywords.map((tag) =>
+            filters.tags.includes(tag) ? (
+              ""
+            ) : (
+              <Chip
+                label={tag}
+                key={tag}
+                onClick={(e) => {
+                  setFilter("tag", e.currentTarget.textContent);
+                }}
+                variant="outlined"
+              />
+            )
+          )}
         </CardContent>
       </Collapse>
     </Card>

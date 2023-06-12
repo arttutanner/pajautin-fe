@@ -19,15 +19,23 @@ export class AppService {
     public async setPreferences(prefs: any) {
 
         return await (await axios.post('/api/preferences',prefs)).data;
-/*)
-        const response = await fetch(API_SERVER+`/api/preferences`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(prefs),
-            credentials: 'same-origin'
-          });
-        return await response.json(); */
+
     }
+
+    public async setPresent(pres: any) {
+
+        return await (await axios.post('/api/presence',pres)).data;
+
+    }
+
+
+    public async getPresent(): Promise<any> {
+
+        
+        return await (await axios.get('/api/presence')).data;
+        
+    }
+    
 
     public async getWorkshops() : Promise<any> {
         const response = await fetch('/pajautin-data.json', {credentials: 'same-origin'});
@@ -37,15 +45,15 @@ export class AppService {
     public async doLogin(userId : string) : Promise<any> {
 
         return await (await axios.post('/api/login/',userId)).data;
-        /*
-        const response = await fetch(API_SERVER+`/api/login`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: userId
-          });
-        return await response.json();
-        */
+
     }
+
+    public async doLogout() : Promise<any> {
+
+        return await (await axios.post('/api/logout/')).data;
+
+    }
+
 
 
 }

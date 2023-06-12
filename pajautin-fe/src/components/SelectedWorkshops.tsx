@@ -39,15 +39,6 @@ function SelectedWorkshops({ addedItems, setAddedItems }: Props) {
 
     let newItems = reorder(addedItems, source.index, destination.index);
     setAddedItems(newItems);
-    let appSrv: AppService = new AppService();
-    appSrv.setPreferences(newItems.map((i) => i.id)).then((reply) => {
-      if ((reply.status = "ok")) {
-        setSaveInfoMsg("Tiedot tallennettu " + reply.date);
-      } else {
-        setSaveInfoMsg("Virhe tietojen tallennuksessa");
-      }
-      setSaveInfoOpen(true);
-    });
   };
 
   const removeAddedItem = (item: Workshop) => {
@@ -77,48 +68,40 @@ function SelectedWorkshops({ addedItems, setAddedItems }: Props) {
   };
 
   return (
-    <>
-      <Card>
-        <CardHeader
-          title={"Valitut työpajat"}
-          subheader={
-            addedItems.length > 0
-              ? +addedItems.length +
-                " työpaja" +
-                (addedItems.length > 1 ? "a" : "") +
-                " valittu"
-              : "Ei valittuja työpajoja."
-          }
-          style={{ backgroundColor: "#eef" }}
-          action={
-            <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </ExpandMore>
-          }
-        />
-        <Collapse in={expanded}>
-          <CardContent>
-            {addedItems.length == 0 ? "Et ole valinnut yhtään työpajaa" : ""}
-            <DraggableList
-              items={addedItems}
-              onDragEnd={onDragEnd}
-              onDeleteItem={(i) => removeAddedItem(i)}
-            />
-          </CardContent>
-        </Collapse>
-      </Card>
-      <Snackbar
-        open={saveInfoOpen}
-        message={saveInfoMsg}
-        autoHideDuration={2000}
-        onClose={() => setSaveInfoOpen(false)}
+    <Card>
+      <CardHeader
+        title={"Valitut työpajat"}
+        subheader={
+          addedItems.length > 0
+            ? +addedItems.length +
+              " työpaja" +
+              (addedItems.length > 1 ? "a" : "") +
+              " valittu"
+            : "Ei valittuja työpajoja."
+        }
+        style={{ backgroundColor: "#eef" }}
+        action={
+          <ExpandMore
+            expand={expanded}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </ExpandMore>
+        }
       />
-    </>
+      <Collapse in={expanded}>
+        <CardContent>
+          {addedItems.length == 0 ? "Et ole valinnut yhtään työpajaa" : ""}
+          <DraggableList
+            items={addedItems}
+            onDragEnd={onDragEnd}
+            onDeleteItem={(i) => removeAddedItem(i)}
+          />
+        </CardContent>
+      </Collapse>
+    </Card>
   );
 }
 

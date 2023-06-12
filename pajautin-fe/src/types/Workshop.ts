@@ -14,10 +14,14 @@ export type Workshop = {
     minSize: number;
     maxSize : number;
     imgUrl: string;
-    name2: string;
-    author2: string;
-    authorTitle2 : string;
-    description2: string;
+    imgUrl2: string;
+    speechName1 : string;
+    speechAuthor1: string;
+    speechDescription1: string;
+    speechName2 : string;
+    speechAuthor2: string;
+    speechDescription2: string; 
+
     
   };
   

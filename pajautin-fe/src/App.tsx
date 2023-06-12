@@ -43,9 +43,28 @@ function App() {
     });
   };
 
+  const logout = () => {
+    let appSrv: AppService = new AppService();
+    appSrv.doLogout().then((loginReply) => {
+      console.log(loginReply);
+      setLoginStatus({
+        loggedIn: false,
+        firstName: null,
+        lastName: null,
+      });
+    });
+  };
+
   return (
-    <>
-      <PajautinAppBar loginStatus={loginStatus} />
+    <div
+      className="App"
+      style={{
+        backgroundImage: `url(${"/JT23_Kuosi_TummanSininen.jpg"})`,
+        backgroundAttachment: "fixed",
+        height: "100%",
+      }}
+    >
+      <PajautinAppBar loginStatus={loginStatus} logOut={logout} />
       {loginStatus.loggedIn ? (
         <AppMain
           loginStatus={loginStatus}
@@ -55,7 +74,7 @@ function App() {
       ) : (
         <LoginScreen login={login} loginError={loginError} />
       )}
-    </>
+    </div>
   );
 }
 

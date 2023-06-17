@@ -7,9 +7,9 @@ export type Workshop = {
     authorTitle: string;
     keywords: string;
     roverRecommended : boolean;
-    slot1 : boolean;
-    slot2 : boolean;
-    slot3 : boolean;
+    slot1 : string;
+    slot2 : string;
+    slot3 : string;
     availableSlots: number;
     minSize: number;
     maxSize : number;

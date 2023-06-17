@@ -52,7 +52,7 @@ const DraggableListItem = ({
                 bgcolor: TYPE_COLORS[item.type - 1],
                 width: "20px",
                 height: "20px",
-                marginTop: "-15px",
+                marginTop: "-12px",
                 marginLeft: "-5px",
               }}
             >
@@ -72,6 +72,23 @@ const DraggableListItem = ({
                 ""
               )}
             </Avatar>
+            {item.type == 3 ? (
+              <Avatar
+                sx={{
+                  bgcolor: "#119",
+                  width: "20px",
+                  height: "20px",
+                  marginTop: "-19px",
+                  marginLeft: "19px",
+                }}
+              >
+                {item.slot1 == "TRUE" ? "1" : ""}
+                {item.slot2 == "TRUE" ? "2" : ""}
+                {item.slot3 == "TRUE" ? "3" : ""}
+              </Avatar>
+            ) : (
+              ""
+            )}
           </ListItemAvatar>
           <ListItemText primary={<>{item.name}</>} secondary={item.author} />
         </ListItem>

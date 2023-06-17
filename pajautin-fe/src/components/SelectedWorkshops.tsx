@@ -4,6 +4,7 @@ import { reorder } from "../util/draggableHelpers";
 import DraggableList from "./DragableList/DraggableList";
 import React, { useState } from "react";
 import {
+  Alert,
   Card,
   CardContent,
   CardHeader,
@@ -16,6 +17,8 @@ import { render } from "react-dom";
 import ExpandMore from "./ExpandMore";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AppService } from "../services/app.service";
+import Diversity3Icon from "@mui/icons-material/Diversity3";
+import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 
 interface Props {
   addedItems: Workshop[];
@@ -60,8 +63,37 @@ function SelectedWorkshops({ addedItems, setAddedItems }: Props) {
   const bigScreen = useMediaQuery(theme.breakpoints.up("sm"));
 
   const [expanded, setExpanded] = useState(bigScreen);
-  const [saveInfoOpen, setSaveInfoOpen] = useState<boolean>(false);
-  const [saveInfoMsg, setSaveInfoMsg] = useState<string>("");
+
+  const minimumNotSelected = () => {
+    return addedItems.length < 10;
+  };
+
+  const noSpeechesInAllCategories = () => {
+    let s1OK = false;
+    let s2OK = false;
+    let s3OK = false;
+    addedItems.forEach((i) => {
+      if (i.type == 3) {
+        if (i.slot1 == "TRUE") s1OK = true;
+        if (i.slot2 == "TRUE") s2OK = true;
+        if (i.slot3 == "TRUE") s3OK = true;
+      }
+    });
+
+    console.log("s1: " + s1OK);
+    console.log("s2: " + s2OK);
+    console.log("s3: " + s3OK);
+
+    if (s1OK && s2OK && s3OK) return false;
+    let r = "Valitse ohjelmatoiveisiin puheenvuoro aikavälistä ";
+    if (!s1OK && !s2OK && !s3OK) return r + " 1,2 ja 3.";
+    let prob = [];
+    if (!s1OK) prob.push(1);
+    if (!s2OK) prob.push(2);
+    if (!s3OK) prob.push(3);
+    if (prob.length == 2) return r + prob[0] + " ja " + prob[1];
+    return r + prob[0];
+  };
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -100,6 +132,21 @@ function SelectedWorkshops({ addedItems, setAddedItems }: Props) {
             onDeleteItem={(i) => removeAddedItem(i)}
           />
         </CardContent>
+        {minimumNotSelected() ? (
+          <Alert severity="warning">Valitse ainakin 10 ohjelmatoivetta.</Alert>
+        ) : (
+          <Alert severity="success">Ainakin 10 ohjellmatoivetta valittu.</Alert>
+        )}
+        {noSpeechesInAllCategories() ? (
+          <Alert severity="warning">{noSpeechesInAllCategories()}</Alert>
+        ) : (
+          <Alert severity="success">
+            Puheenvuorotoive valittu kaikista aikaväleistä.
+          </Alert>
+        )}
+        <Alert severity="info">
+          Voit vaihtaa ohjelmatoiveiden järjestystä vetämällä.
+        </Alert>
       </Collapse>
     </Card>
   );

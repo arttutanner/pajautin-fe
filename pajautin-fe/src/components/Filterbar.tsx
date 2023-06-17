@@ -52,6 +52,8 @@ function Filterbar({ setFilters, keywords }: Props) {
       filters.types = [...filters.types, value];
     }
 
+    if ((name = "rover")) filters.roverRecommended = value;
+
     setFilters({ ...filters });
   };
 
@@ -67,6 +69,8 @@ function Filterbar({ setFilters, keywords }: Props) {
     if (name == "type" && value != null) {
       filters.types.splice(filters.types.indexOf(value), 1);
     }
+
+    if (name == "rover") filters.roverRecommended = null;
 
     setFilters({ ...filters });
   };
@@ -97,7 +101,9 @@ function Filterbar({ setFilters, keywords }: Props) {
   const filterCount = () => {
     return (
       (filters.freetext == "" ? 0 : 1) +
-      (filters.roverRecommended == null ? 0 : 1) +
+      (filters.roverRecommended == null || filters.roverRecommended == undefined
+        ? 0
+        : 1) +
       filters.tags.length +
       filters.types.length
     );
@@ -131,9 +137,7 @@ function Filterbar({ setFilters, keywords }: Props) {
       <Collapse in={expanded}>
         <CardContent>
           <p />
-          {filters.freetext == "" &&
-          filters.types.length == 0 &&
-          filters.tags.length == 0 ? (
+          {filterCount() == 0 ? (
             "Ei suodattimia."
           ) : (
             <>
@@ -185,6 +189,30 @@ function Filterbar({ setFilters, keywords }: Props) {
               key={"deltype_" + type}
             />
           ))}
+
+          {filters.roverRecommended != null &&
+          filters.roverRecommended != undefined ? (
+            <Chip
+              label={
+                filters.roverRecommended
+                  ? "Vaeltajaraati suosittelee"
+                  : "Ei suositusta"
+              }
+              variant="outlined"
+              onDelete={(e) => removeFilter("rover", null)}
+              avatar={
+                <Avatar sx={{ bgcolor: "#ddd" }}>
+                  <img
+                    src={
+                      (filters.roverRecommended ? "yes" : "no") + "_rover.png"
+                    }
+                  />
+                </Avatar>
+              }
+            />
+          ) : (
+            ""
+          )}
 
           {filters.tags.map((tag) => (
             <Chip
@@ -241,6 +269,28 @@ function Filterbar({ setFilters, keywords }: Props) {
               />
             )
           )}
+          <p />
+          <h5>Vaeltajaraadin suosittelema</h5>
+          <Chip
+            label="Vaeltajaraati suosittelee"
+            variant="outlined"
+            onClick={(e) => setFilter("rover", true)}
+            avatar={
+              <Avatar sx={{ bgcolor: "#ddd" }}>
+                <img src="yes_rover.png" />
+              </Avatar>
+            }
+          />
+          <Chip
+            label="Ei suositusta"
+            variant="outlined"
+            onClick={(e) => setFilter("rover", false)}
+            avatar={
+              <Avatar sx={{ bgcolor: "#ddd" }}>
+                <img src="no_rover.png" />
+              </Avatar>
+            }
+          />
           <p />
           <h5>Avainsanat</h5>
           {keywords.map((tag) =>

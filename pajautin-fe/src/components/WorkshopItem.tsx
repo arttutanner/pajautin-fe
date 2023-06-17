@@ -50,14 +50,33 @@ function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
     <Card>
       <CardHeader
         avatar={
-          <Avatar
-            sx={{ bgcolor: TYPE_COLORS[item.type - 1] }}
-            aria-label={TYPE_NAMES[item.type - 1]}
-          >
-            {item.type == 1 ? <EmojiPeopleIcon /> : ""}
-            {item.type == 2 ? <Diversity3Icon /> : ""}
-            {item.type == 3 ? <RecordVoiceOverIcon /> : ""}
-          </Avatar>
+          <>
+            <Avatar
+              sx={{ bgcolor: TYPE_COLORS[item.type - 1] }}
+              aria-label={TYPE_NAMES[item.type - 1]}
+            >
+              {item.type == 1 ? <EmojiPeopleIcon /> : ""}
+              {item.type == 2 ? <Diversity3Icon /> : ""}
+              {item.type == 3 ? <RecordVoiceOverIcon /> : ""}
+            </Avatar>
+            {item.type == 3 ? (
+              <Avatar
+                sx={{
+                  bgcolor: "#789",
+                  width: "25px",
+                  height: "25px",
+                  marginTop: "-5px",
+                  marginLeft: "-8px",
+                }}
+              >
+                {item.slot1 == "TRUE" ? "1" : ""}
+                {item.slot2 == "TRUE" ? "2" : ""}
+                {item.slot3 == "TRUE" ? "3" : ""}
+              </Avatar>
+            ) : (
+              ""
+            )}
+          </>
         }
         action={
           <IconButton
@@ -99,8 +118,17 @@ function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
           {tags.map((tag) => (
             <Chip key={tag} label={tag} variant="outlined" />
           ))}
-          <br />
-          <br />
+          {item.roverRecommended == "TRUE" ? (
+            <>
+              <img src="rover_recommended.png" />
+              <br />{" "}
+            </>
+          ) : (
+            <>
+              <br />
+              <br />{" "}
+            </>
+          )}
         </Container>
       ) : (
         ""

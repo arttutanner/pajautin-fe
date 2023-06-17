@@ -66,6 +66,14 @@ function doFilter(filter: WorkshopFilter, ws: Workshop) {
     });
   }
 
+  if (filter.roverRecommended != null && filter.roverRecommended != undefined) {
+    matchesRover = false;
+    if (filter.roverRecommended && ws.roverRecommended == "TRUE")
+      matchesRover = true;
+    if (!filter.roverRecommended && ws.roverRecommended != "TRUE")
+      matchesRover = true;
+  }
+
   return matchesFreetext && matchesRover && matchesTags && matchesType;
 }
 

@@ -37,6 +37,28 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
   const [filters, setFilters] = useState<WorkshopFilter>(wsFilter);
   const [addedItems, setAddedItems] = useState<Workshop[]>([]);
 
+  const [presentInProgram, setPresentInProgramSt] = useState<boolean[]>([
+    true,
+    true,
+    true,
+  ]);
+
+  useEffect(() => {
+    let appSrv: AppService = new AppService();
+    appSrv.getPresent().then((p: boolean[]) => {
+      setPresentInProgramSt(p);
+      if (!p[0] && !p[1] && !p[2]) setMasterSwitch(true);
+      else setMasterSwitch(false);
+    });
+  }, []);
+
+  const setPresentInProgram = (p: boolean[]) => {
+    setPresentInProgramSt(p);
+    savePresence(p);
+  };
+
+  const [masterSwtich, setMasterSwitch] = useState<boolean>(false);
+
   const showInfoText = (info: string) => {
     setSaveInfoMsg(info);
     setSaveInfoOpen(true);
@@ -109,7 +131,12 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
                 setAddedItems={setAndSaveAddedItems}
               />
               <p />
-              <AbsenceSelector savePresence={savePresence} />
+              <AbsenceSelector
+                setPresentInProgram={setPresentInProgram}
+                setMasterSwitch={setMasterSwitch}
+                presentInProgram={presentInProgram}
+                masterSwitch={masterSwtich}
+              />
             </Stack>
           </Grid>
         </Grid>
@@ -136,7 +163,12 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
             />
           </Grid>
           <Grid item xs={12}>
-            <AbsenceSelector savePresence={savePresence} />
+            <AbsenceSelector
+              setPresentInProgram={setPresentInProgram}
+              setMasterSwitch={setMasterSwitch}
+              presentInProgram={presentInProgram}
+              masterSwitch={masterSwtich}
+            />
           </Grid>
           <Grid item xs={12}>
             <WorkshopList

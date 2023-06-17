@@ -16,32 +16,18 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AppService } from "../services/app.service";
 
 interface Props {
-  savePresence: (pres: boolean[]) => void;
+  setPresentInProgram: (pres: boolean[]) => void;
+  presentInProgram: boolean[];
+  masterSwitch: boolean;
+  setMasterSwitch: (ms: boolean) => void;
 }
 
-function AbsenceSelector({ savePresence }: Props) {
-  const [presentInProgram, setPresentInProgramSt] = useState<boolean[]>([
-    true,
-    true,
-    true,
-  ]);
-
-  useEffect(() => {
-    let appSrv: AppService = new AppService();
-    appSrv.getPresent().then((p: boolean[]) => {
-      setPresentInProgramSt(p);
-      if (!p[0] && !p[1] && !p[2]) setMasterSwitch(true);
-      else setMasterSwitch(false);
-    });
-  }, []);
-
-  const setPresentInProgram = (p: boolean[]) => {
-    setPresentInProgramSt(p);
-    savePresence(p);
-  };
-
-  const [masterSwtich, setMasterSwitch] = useState<boolean>(false);
-
+function AbsenceSelector({
+  setPresentInProgram,
+  presentInProgram,
+  masterSwitch,
+  setMasterSwitch,
+}: Props) {
   const theme = createTheme({
     components: {
       MuiUseMediaQuery: {
@@ -134,7 +120,7 @@ function AbsenceSelector({ savePresence }: Props) {
               <FormControlLabel
                 control={
                   <Switch
-                    checked={masterSwtich}
+                    checked={masterSwitch}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       setAll(event.target.checked)
                     }

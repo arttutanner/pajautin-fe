@@ -7,6 +7,7 @@ import { API_SERVER } from "./types/Constants";
 import { LoginStatus } from "./types/LoginStatus";
 import { Workshop } from "./types/Workshop";
 import { getUniqueKeywords } from "./util/keywordutil";
+import WorkshopItem from "./components/WorkshopItem";
 
 function App() {
   const [wsItems, setWsItems] = useState<Workshop[]>([]);
@@ -21,7 +22,11 @@ function App() {
   useEffect(() => {
     let appSrv: AppService = new AppService();
     appSrv.getWorkshops().then((ws) => {
-      setWsItems(ws);
+      // Sort by id
+      let wsi = ws as Workshop[];
+      wsi = wsi.sort((a, b) => a.id - b.id);
+
+      setWsItems(wsi);
       let kw = getUniqueKeywords(ws);
       setKeywords(kw);
       //console.log(kw);
@@ -56,14 +61,7 @@ function App() {
   };
 
   return (
-    <div
-      className="App"
-      style={{
-        backgroundImage: `url(${"/JT23_Kuosi_TummanSininen.jpg"})`,
-        backgroundAttachment: "fixed",
-        height: "100%",
-      }}
-    >
+    <div className="App">
       <PajautinAppBar loginStatus={loginStatus} logOut={logout} />
       {loginStatus.loggedIn ? (
         <AppMain

@@ -23,6 +23,7 @@ import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 interface Props {
   addedItems: Workshop[];
   setAddedItems: (items: Workshop[]) => void;
+  presentInProgram: boolean[];
 }
 
 function removeObjectWithId(arr: Workshop[], id: number) {
@@ -35,7 +36,11 @@ function removeObjectWithId(arr: Workshop[], id: number) {
   return arr;
 }
 
-function SelectedWorkshops({ addedItems, setAddedItems }: Props) {
+function SelectedWorkshops({
+  addedItems,
+  setAddedItems,
+  presentInProgram,
+}: Props) {
   const onDragEnd = ({ destination, source }: DropResult) => {
     // dropped outside the list
     if (!destination) return;
@@ -80,9 +85,15 @@ function SelectedWorkshops({ addedItems, setAddedItems }: Props) {
       }
     });
 
-    console.log("s1: " + s1OK);
-    console.log("s2: " + s2OK);
-    console.log("s3: " + s3OK);
+    if (
+      presentInProgram != null &&
+      presentInProgram != undefined &&
+      presentInProgram.length == 3
+    ) {
+      if (presentInProgram[0]) s1OK = true;
+      if (presentInProgram[1]) s2OK = true;
+      if (presentInProgram[2]) s3OK = true;
+    }
 
     if (s1OK && s2OK && s3OK) return false;
     let r = "Valitse ohjelmatoiveisiin puheenvuoro aikavälistä ";

@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Link, Typography } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import { Workshop } from "../types/Workshop";
 
@@ -27,6 +27,22 @@ function RegularWorkshop({ item }: Props) {
         <div
           dangerouslySetInnerHTML={{ __html: replaceBr(item.description) }}
         ></div>
+
+        {item.link != null && item.link != undefined && item.link.length > 0
+          ? item.link.split(",").map((link) => (
+              <div>
+                <Link
+                  key={link.trim()}
+                  href={link.trim()}
+                  target="_blank"
+                  rel="nopener"
+                >
+                  {link.trim()}
+                </Link>
+                <br />
+              </div>
+            ))
+          : ""}
       </Typography>
     </CardContent>
   );

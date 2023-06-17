@@ -129,6 +129,7 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
               <SelectedWorkshops
                 addedItems={addedItems}
                 setAddedItems={setAndSaveAddedItems}
+                presentInProgram={presentInProgram}
               />
               <p />
               <AbsenceSelector
@@ -160,6 +161,7 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
             <SelectedWorkshops
               addedItems={addedItems}
               setAddedItems={setAndSaveAddedItems}
+              presentInProgram={presentInProgram}
             />
           </Grid>
           <Grid item xs={12}>

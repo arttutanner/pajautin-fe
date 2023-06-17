@@ -6,7 +6,7 @@ export type Workshop = {
     author: string;
     authorTitle: string;
     keywords: string;
-    roverRecommended : boolean;
+    roverRecommended : string;
     slot1 : string;
     slot2 : string;
     slot3 : string;
@@ -20,7 +20,8 @@ export type Workshop = {
     speechDescription1: string;
     speechName2 : string;
     speechAuthor2: string;
-    speechDescription2: string; 
+    speechDescription2: string;
+    link: string;
 
     
   };

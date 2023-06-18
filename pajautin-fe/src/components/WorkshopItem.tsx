@@ -14,7 +14,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { TYPE_COLORS, TYPE_NAMES } from "../types/Constants";
+import { TYPE_COLORS, TYPE_COLORS_LIGHT, TYPE_NAMES } from "../types/Constants";
 import { AddCircle, ImageOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
@@ -92,7 +92,7 @@ function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
         }
         title={item.name}
         subheader={item.author}
-        style={{ backgroundColor: "#ddd" }}
+        style={{ backgroundColor: TYPE_COLORS_LIGHT[item.type - 1] }}
       />
 
       {item.type == 3 ? (

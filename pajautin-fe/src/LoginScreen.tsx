@@ -1,6 +1,8 @@
 import {
+  Alert,
   Button,
   Card,
+  CardContent,
   CardHeader,
   Container,
   Grid,
@@ -25,24 +27,41 @@ function LoginScreen({ login, loginError }: Props) {
     }
   });
 
+  const handleKeyDown = (event: { key: string }) => {
+    if (event.key === "Enter") {
+      // Get input value
+      login(userId);
+    }
+    return true;
+  };
+
   return (
     <Container>
       <h1></h1>
       <Card>
         <CardHeader title="Kirjaudu sisään" />
-        <Stack>
-          <TextField
-            id="userLogin"
-            label="Ilmoittautumistunnus"
-            value={userId}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setUserId(event.target.value);
-            }}
-          />
-          <Button id="login" onClick={() => login(userId)}>
-            Kirjaudu sisään
-          </Button>
-        </Stack>
+        <CardContent>
+          <Stack>
+            <TextField
+              id="userLogin"
+              label="Ilmoittautumistunnus"
+              value={userId}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setUserId(event.target.value);
+              }}
+              onKeyDown={handleKeyDown}
+            />
+            {loginError ? <Alert severity="error">{loginError}</Alert> : ""}
+            <Button
+              id="login"
+              variant="contained"
+              style={{ marginTop: "10px" }}
+              onClick={() => login(userId)}
+            >
+              Kirjaudu sisään
+            </Button>
+          </Stack>
+        </CardContent>
       </Card>
     </Container>
   );

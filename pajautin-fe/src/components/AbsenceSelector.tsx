@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import ExpandMore from "./ExpandMore";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AppService } from "../services/app.service";
+import { THEME_COLORS } from "../types/Constants";
 
 interface Props {
   setPresentInProgram: (pres: boolean[]) => void;
@@ -67,7 +68,7 @@ function AbsenceSelector({
         <CardHeader
           title={"Läsnäolo"}
           subheader={verbalizeAbsence(presentInProgram)}
-          style={{ backgroundColor: "#eef" }}
+          style={{ backgroundColor: THEME_COLORS.POUTA[50] }}
           action={
             <ExpandMore
               expand={expanded}

@@ -15,9 +15,8 @@ import Chip from "@mui/material/Chip";
 
 import { WorkshopFilter } from "../types/WorkshopFilter";
 import { Avatar, Typography } from "@mui/material";
-import { TYPE_COLORS, TYPE_NAMES } from "../types/Constants";
+import { THEME_COLORS, TYPE_COLORS, TYPE_NAMES } from "../types/Constants";
 
-import { IconButton } from "@mui/material";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
@@ -121,7 +120,7 @@ function Filterbar({ setFilters, keywords }: Props) {
               " käytössä."
             : "Ei suodattimia."
         }
-        style={{ backgroundColor: "#eef" }}
+        style={{ backgroundColor: THEME_COLORS.POUTA[50] }}
         action={
           <ExpandMore
             expand={expanded}

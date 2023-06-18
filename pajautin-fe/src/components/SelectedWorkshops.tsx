@@ -19,6 +19,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AppService } from "../services/app.service";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
+import { THEME_COLORS } from "../types/Constants";
 
 interface Props {
   addedItems: Workshop[];
@@ -122,7 +123,7 @@ function SelectedWorkshops({
               " valittu."
             : "Ei valittuja ohjelmia."
         }
-        style={{ backgroundColor: "#eef" }}
+        style={{ backgroundColor: THEME_COLORS.POUTA[50] }}
         action={
           <ExpandMore
             expand={expanded}

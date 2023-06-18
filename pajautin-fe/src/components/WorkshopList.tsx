@@ -4,7 +4,7 @@ import WorkshopItem from "./WorkshopItem";
 import Stack from "@mui/material/Stack";
 
 import { WorkshopFilter } from "../types/WorkshopFilter";
-import { Container } from "@mui/material";
+import { Alert, Container } from "@mui/material";
 import Grid from "@mui/system/Unstable_Grid";
 
 interface Props {
@@ -84,7 +84,9 @@ function WorkshopList({ items, filter, addedItems, setAddedItems }: Props) {
     <Stack gap={3}>
       {filteredWorkshops.length == 0 ? (
         <Grid container spacing={-5}>
-          <h5>Hakuehtojasi vastaavia ohjelmia ei löytynyt.</h5>
+          <Alert severity="info">
+            Hakuehtojasi vastaavia ohjelmia ei löytynyt.
+          </Alert>
         </Grid>
       ) : (
         filteredWorkshops.map((item) => (

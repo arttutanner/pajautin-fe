@@ -44,6 +44,8 @@ function App() {
           firstName: loginReply.participant.firstName,
           lastName: loginReply.participant.lastName,
         });
+      } else {
+        setLoginError("Virheellinen ilmoittautumistunnus!");
       }
     });
   };
@@ -61,7 +63,10 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div
+      className="App"
+      style={{ backgroundImage: "JT23_Kuosi_TummanSininen.jpg" }}
+    >
       <PajautinAppBar loginStatus={loginStatus} logOut={logout} />
       {loginStatus.loggedIn ? (
         <AppMain

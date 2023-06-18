@@ -90,9 +90,9 @@ function SelectedWorkshops({
       presentInProgram != undefined &&
       presentInProgram.length == 3
     ) {
-      if (presentInProgram[0]) s1OK = true;
-      if (presentInProgram[1]) s2OK = true;
-      if (presentInProgram[2]) s3OK = true;
+      if (!presentInProgram[0]) s1OK = true;
+      if (!presentInProgram[1]) s2OK = true;
+      if (!presentInProgram[2]) s3OK = true;
     }
 
     if (s1OK && s2OK && s3OK) return false;

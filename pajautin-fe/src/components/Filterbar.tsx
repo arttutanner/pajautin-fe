@@ -52,7 +52,7 @@ function Filterbar({ setFilters, keywords }: Props) {
       filters.types = [...filters.types, value];
     }
 
-    if ((name = "rover")) filters.roverRecommended = value;
+    if (name == "rover") filters.roverRecommended = value;
 
     setFilters({ ...filters });
   };

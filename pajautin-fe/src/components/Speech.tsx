@@ -22,7 +22,7 @@ function Speech({ title, author, description, imgUrl }: Props) {
       <CardHeader
         title={title}
         subheader={author}
-        style={{ backgroundColor: "#fff" }}
+        style={{ backgroundColor: "#fff", marginBottom: "-25px" }}
       />
 
       <CardContent>

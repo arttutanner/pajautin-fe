@@ -113,14 +113,14 @@ function SelectedWorkshops({
   return (
     <Card>
       <CardHeader
-        title={"Valitut työpajat"}
+        title={"Valitut ohjelmatoiveet"}
         subheader={
           addedItems.length > 0
             ? +addedItems.length +
-              " työpaja" +
+              " ohjelma" +
               (addedItems.length > 1 ? "a" : "") +
-              " valittu"
-            : "Ei valittuja työpajoja."
+              " valittu."
+            : "Ei valittuja ohjelmia."
         }
         style={{ backgroundColor: "#eef" }}
         action={
@@ -136,7 +136,7 @@ function SelectedWorkshops({
       />
       <Collapse in={expanded}>
         <CardContent>
-          {addedItems.length == 0 ? "Et ole valinnut yhtään työpajaa" : ""}
+          {addedItems.length == 0 ? "Et ole valinnut yhtään ohjelmaa" : ""}
           <DraggableList
             items={addedItems}
             onDragEnd={onDragEnd}

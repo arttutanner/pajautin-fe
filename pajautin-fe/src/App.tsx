@@ -14,6 +14,7 @@ function App() {
   const [keywords, setKeywords] = useState<string[]>([]);
   const [loginStatus, setLoginStatus] = useState<LoginStatus>({
     loggedIn: false,
+    viewOnly: false,
     firstName: "",
     lastName: "",
   });
@@ -29,18 +30,16 @@ function App() {
       setWsItems(wsi);
       let kw = getUniqueKeywords(ws);
       setKeywords(kw);
-      //console.log(kw);
     });
   }, []);
 
   const login = (userId: string) => {
-    console.log("Login attempt:" + userId);
     let appSrv: AppService = new AppService();
     appSrv.doLogin(userId).then((loginReply) => {
-      console.log(loginReply);
       if (loginReply.status == "ok") {
         setLoginStatus({
           loggedIn: true,
+          viewOnly: false,
           firstName: loginReply.participant.firstName,
           lastName: loginReply.participant.lastName,
         });
@@ -50,15 +49,33 @@ function App() {
     });
   };
 
+  const loginViewOnly = () => {
+    setLoginStatus({
+      loggedIn: false,
+      viewOnly: true,
+      firstName: null,
+      lastName: null,
+    });
+  };
+
   const logout = () => {
     let appSrv: AppService = new AppService();
     appSrv.doLogout().then((loginReply) => {
-      console.log(loginReply);
       setLoginStatus({
         loggedIn: false,
+        viewOnly: false,
         firstName: null,
         lastName: null,
       });
+    });
+  };
+
+  const backToLogin = () => {
+    setLoginStatus({
+      loggedIn: false,
+      viewOnly: false,
+      firstName: null,
+      lastName: null,
     });
   };
 
@@ -67,15 +84,23 @@ function App() {
       className="App"
       style={{ backgroundImage: "JT23_Kuosi_TummanSininen.jpg" }}
     >
-      <PajautinAppBar loginStatus={loginStatus} logOut={logout} />
-      {loginStatus.loggedIn ? (
+      <PajautinAppBar
+        loginStatus={loginStatus}
+        logOut={logout}
+        backToLogin={backToLogin}
+      />
+      {loginStatus.loggedIn || loginStatus.viewOnly ? (
         <AppMain
           loginStatus={loginStatus}
           wsKeywords={keywords}
           wsList={wsItems}
         />
       ) : (
-        <LoginScreen login={login} loginError={loginError} />
+        <LoginScreen
+          login={login}
+          loginViewOnly={loginViewOnly}
+          loginError={loginError}
+        />
       )}
     </div>
   );

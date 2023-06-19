@@ -14,7 +14,7 @@ function RegularWorkshop({ item }: Props) {
 
   return (
     <CardContent>
-      <Typography variant="body2">
+      <Typography variant="body2" component="span">
         {item.imgUrl != null &&
         item.imgUrl != undefined &&
         item.imgUrl != "" ? (
@@ -30,7 +30,7 @@ function RegularWorkshop({ item }: Props) {
 
         {item.link != null && item.link != undefined && item.link.length > 0
           ? item.link.split(",").map((link) => (
-              <div>
+              <div key={link.trim()}>
                 <Link
                   key={link.trim()}
                   href={link.trim()}

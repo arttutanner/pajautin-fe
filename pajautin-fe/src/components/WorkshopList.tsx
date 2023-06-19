@@ -12,6 +12,7 @@ interface Props {
   filter: WorkshopFilter;
   addedItems: Workshop[];
   setAddedItems: (items: Workshop[]) => void;
+  viewOnly: boolean;
 }
 
 function doFilter(filter: WorkshopFilter, ws: Workshop) {
@@ -77,7 +78,13 @@ function doFilter(filter: WorkshopFilter, ws: Workshop) {
   return matchesFreetext && matchesRover && matchesTags && matchesType;
 }
 
-function WorkshopList({ items, filter, addedItems, setAddedItems }: Props) {
+function WorkshopList({
+  items,
+  filter,
+  addedItems,
+  setAddedItems,
+  viewOnly,
+}: Props) {
   const filteredWorkshops = items.filter((i) => doFilter(filter, i));
 
   return (
@@ -95,6 +102,7 @@ function WorkshopList({ items, filter, addedItems, setAddedItems }: Props) {
             item={item}
             addedItems={addedItems}
             setAddedItems={setAddedItems}
+            viewOnly={viewOnly}
           />
         ))
       )}

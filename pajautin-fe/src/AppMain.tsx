@@ -91,18 +91,13 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
     let appSrv: AppService = new AppService();
 
     appSrv.getPreferences().then((prefs: number[]) => {
-      console.log("Prefs:");
-      console.log(prefs);
-
       let setItems: Workshop[] = [];
       prefs.forEach((p: number) => {
         let ws = wsList.find((a) => a.id == p);
         if (ws != null && ws != undefined) setItems.push(ws!);
       });
-      console.log("SetItems", setItems);
 
       setAddedItems(setItems);
-      console.log(setItems);
     });
   }, []);
 
@@ -122,24 +117,29 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
               items={wsList}
               addedItems={addedItems}
               setAddedItems={setAndSaveAddedItems}
+              viewOnly={loginStatus.viewOnly}
             />
           </Grid>
-          <Grid item md={4}>
-            <Stack>
-              <SelectedWorkshops
-                addedItems={addedItems}
-                setAddedItems={setAndSaveAddedItems}
-                presentInProgram={presentInProgram}
-              />
-              <p />
-              <AbsenceSelector
-                setPresentInProgram={setPresentInProgram}
-                setMasterSwitch={setMasterSwitch}
-                presentInProgram={presentInProgram}
-                masterSwitch={masterSwtich}
-              />
-            </Stack>
-          </Grid>
+          {loginStatus.viewOnly ? (
+            ""
+          ) : (
+            <Grid item md={4}>
+              <Stack>
+                <SelectedWorkshops
+                  addedItems={addedItems}
+                  setAddedItems={setAndSaveAddedItems}
+                  presentInProgram={presentInProgram}
+                />
+                <div style={{ marginTop: "25px" }} />
+                <AbsenceSelector
+                  setPresentInProgram={setPresentInProgram}
+                  setMasterSwitch={setMasterSwitch}
+                  presentInProgram={presentInProgram}
+                  masterSwitch={masterSwtich}
+                />
+              </Stack>
+            </Grid>
+          )}
         </Grid>
       </Container>
       <Container
@@ -157,27 +157,35 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
           <Grid item xs={12}>
             <Filterbar setFilters={setFilters} keywords={wsKeywords} />
           </Grid>
-          <Grid item xs={12}>
-            <SelectedWorkshops
-              addedItems={addedItems}
-              setAddedItems={setAndSaveAddedItems}
-              presentInProgram={presentInProgram}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <AbsenceSelector
-              setPresentInProgram={setPresentInProgram}
-              setMasterSwitch={setMasterSwitch}
-              presentInProgram={presentInProgram}
-              masterSwitch={masterSwtich}
-            />
-          </Grid>
+          {loginStatus.viewOnly ? (
+            ""
+          ) : (
+            <>
+              <Grid item xs={12}>
+                <SelectedWorkshops
+                  addedItems={addedItems}
+                  setAddedItems={setAndSaveAddedItems}
+                  presentInProgram={presentInProgram}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <AbsenceSelector
+                  setPresentInProgram={setPresentInProgram}
+                  setMasterSwitch={setMasterSwitch}
+                  presentInProgram={presentInProgram}
+                  masterSwitch={masterSwtich}
+                />
+              </Grid>
+            </>
+          )}
           <Grid item xs={12}>
             <WorkshopList
               filter={filters}
               items={wsList}
               addedItems={addedItems}
               setAddedItems={setAndSaveAddedItems}
+              viewOnly={loginStatus.viewOnly}
             />
           </Grid>
         </Grid>

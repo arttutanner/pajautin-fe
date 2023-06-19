@@ -26,7 +26,7 @@ function Speech({ title, author, description, imgUrl }: Props) {
       />
 
       <CardContent>
-        <Typography variant="body2">
+        <Typography variant="body2" component="span">
           {imgUrl != null && imgUrl != undefined && imgUrl != "" ? (
             <div className="float-start m-2">
               <img className="rounded" src={imgUrl} />

@@ -10,13 +10,15 @@ import {
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { THEME_COLORS } from "./types/Constants";
 
 interface Props {
   login: (userId: string) => void;
+  loginViewOnly: () => void;
   loginError: string;
 }
 
-function LoginScreen({ login, loginError }: Props) {
+function LoginScreen({ login, loginViewOnly, loginError }: Props) {
   const [userId, setUserId] = useState<string>("");
 
   //add above return
@@ -37,8 +39,15 @@ function LoginScreen({ login, loginError }: Props) {
 
   return (
     <Container>
-      <h1></h1>
-      <Card>
+      <Card style={{ marginTop: "20px" }}>
+        <CardHeader title="Tervetuloa Pajauttimeen!" />
+        <CardContent>
+          Pajautin on Johtajatulien työkalu, jonka avulla voit valita
+          ohjelmatoiveesi. [JOTAIN TEKSTIÄKIN TÄHÄN]
+        </CardContent>
+      </Card>
+
+      <Card style={{ marginTop: "20px" }}>
         <CardHeader title="Kirjaudu sisään" />
         <CardContent>
           <Stack>
@@ -55,10 +64,33 @@ function LoginScreen({ login, loginError }: Props) {
             <Button
               id="login"
               variant="contained"
-              style={{ marginTop: "10px" }}
+              style={{
+                marginTop: "10px",
+                backgroundColor: THEME_COLORS.LIESKA[100],
+              }}
               onClick={() => login(userId)}
             >
               Kirjaudu sisään
+            </Button>
+          </Stack>
+        </CardContent>
+      </Card>
+
+      <Card style={{ marginTop: "20px" }}>
+        <CardHeader title="Katsele ilman kirjautumista" />
+        <CardContent>
+          <Stack>
+            Tästä pääset katselemaan Johtajatulien ohjelmasisältöjä ilman
+            kirjautumista.
+            <Button
+              variant="contained"
+              style={{
+                marginTop: "10px",
+                backgroundColor: THEME_COLORS.METSALAMPI[100],
+              }}
+              onClick={loginViewOnly}
+            >
+              Jatka ilman kirjautumista
             </Button>
           </Stack>
         </CardContent>

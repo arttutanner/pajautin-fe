@@ -8,14 +8,16 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 import { LoginStatus } from "../types/LoginStatus";
 
 interface Props {
   loginStatus: LoginStatus;
   logOut: () => void;
+  backToLogin: () => void;
 }
 
-function PajautinAppBar({ loginStatus, logOut }: Props) {
+function PajautinAppBar({ loginStatus, logOut, backToLogin }: Props) {
   return (
     <AppBar position="sticky" sx={{ background: "#de581d" }}>
       <Toolbar variant="dense">
@@ -24,8 +26,9 @@ function PajautinAppBar({ loginStatus, logOut }: Props) {
           color="inherit"
           aria-label="menu"
           sx={{ mr: 2 }}
+          onClick={() => window.scrollTo(0, 0)}
         >
-          <MenuIcon />
+          <img src="jt_logo_wh.png" />
         </IconButton>
         <Typography
           variant="h6"
@@ -50,6 +53,16 @@ function PajautinAppBar({ loginStatus, logOut }: Props) {
               <LogoutIcon />
             </IconButton>
           </>
+        ) : loginStatus.viewOnly ? (
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2, marginLeft: "10px" }}
+            onClick={backToLogin}
+          >
+            <LoginIcon />
+          </IconButton>
         ) : (
           ""
         )}

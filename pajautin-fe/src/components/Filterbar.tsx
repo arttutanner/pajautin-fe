@@ -135,7 +135,7 @@ function Filterbar({ setFilters, keywords }: Props) {
 
       <Collapse in={expanded}>
         <CardContent>
-          <p />
+          <div style={{ marginTop: "10px" }} />
           {filterCount() == 0 ? (
             "Ei suodattimia."
           ) : (
@@ -221,8 +221,8 @@ function Filterbar({ setFilters, keywords }: Props) {
               variant="outlined"
             />
           ))}
-          <p />
-          <h5>Vapaatekstihaku</h5>
+
+          <h5 style={{ marginTop: "15px" }}>Vapaatekstihaku</h5>
           <TextField
             id="searchterm"
             value={filters.freetext}
@@ -232,8 +232,8 @@ function Filterbar({ setFilters, keywords }: Props) {
             label="Hakusana"
             variant="outlined"
           />
-          <p />
-          <h5>Ohjelman tyyppi</h5>
+
+          <h5 style={{ marginTop: "15px" }}>Ohjelman tyyppi</h5>
           {[1, 2, 3].map((type) =>
             filters.types.includes(type) ? (
               ""
@@ -268,8 +268,8 @@ function Filterbar({ setFilters, keywords }: Props) {
               />
             )
           )}
-          <p />
-          <h5>Vaeltajaraadin suosittelema</h5>
+
+          <h5 style={{ marginTop: "15px" }}>Vaeltajaraadin suosittelema</h5>
           <Chip
             label="Vaeltajaraati suosittelee"
             variant="outlined"
@@ -290,8 +290,8 @@ function Filterbar({ setFilters, keywords }: Props) {
               </Avatar>
             }
           />
-          <p />
-          <h5>Avainsanat</h5>
+
+          <h5 style={{ marginTop: "15px" }}>Avainsanat</h5>
           {keywords.map((tag) =>
             filters.tags.includes(tag) ? (
               ""

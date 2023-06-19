@@ -82,9 +82,8 @@ function AbsenceSelector({
         />
         <Collapse in={expanded}>
           <CardContent>
-            <p>Valitse aikavälit, jolloin osallitut ohjelmaan.</p>
-
-            <Stack>
+            Valitse aikavälit, jolloin osallitut ohjelmaan.
+            <Stack style={{ marginTop: "15px" }}>
               <FormControlLabel
                 control={
                   <Switch

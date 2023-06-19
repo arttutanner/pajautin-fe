@@ -27,9 +27,10 @@ interface Props {
   item: Workshop;
   addedItems: Workshop[];
   setAddedItems: (items: Workshop[]) => void;
+  viewOnly: boolean;
 }
 
-function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
+function WorkshopItem({ item, addedItems, setAddedItems, viewOnly }: Props) {
   let itemAlreadyAdded = (item: Workshop) => {
     if (addedItems == null) return false;
     return addedItems.map((i) => i.id).includes(item.id);
@@ -80,15 +81,19 @@ function WorkshopItem({ item, addedItems, setAddedItems }: Props) {
           </>
         }
         action={
-          <IconButton
-            disabled={itemAlreadyAdded(item)}
-            aria-label="settings"
-            onClick={() => {
-              addToAdded(item);
-            }}
-          >
-            <AddCircle />
-          </IconButton>
+          viewOnly ? (
+            ""
+          ) : (
+            <IconButton
+              disabled={itemAlreadyAdded(item)}
+              aria-label="settings"
+              onClick={() => {
+                addToAdded(item);
+              }}
+            >
+              <AddCircle />
+            </IconButton>
+          )
         }
         title={item.name}
         subheader={item.author}

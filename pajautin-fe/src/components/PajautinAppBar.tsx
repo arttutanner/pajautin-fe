@@ -19,7 +19,7 @@ interface Props {
 
 function PajautinAppBar({ loginStatus, logOut, backToLogin }: Props) {
   return (
-    <AppBar position="sticky" sx={{ background: "#de581d" }}>
+    <AppBar position="fixed" sx={{ background: "#de581d" }}>
       <Toolbar variant="dense">
         <IconButton
           edge="start"

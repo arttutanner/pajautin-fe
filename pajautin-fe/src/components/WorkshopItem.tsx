@@ -14,7 +14,12 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { TYPE_COLORS, TYPE_COLORS_LIGHT, TYPE_NAMES } from "../types/Constants";
+import {
+  PAJAUTIN_READ_ONLY,
+  TYPE_COLORS,
+  TYPE_COLORS_LIGHT,
+  TYPE_NAMES,
+} from "../types/Constants";
 import { AddCircle, ImageOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
@@ -81,7 +86,7 @@ function WorkshopItem({ item, addedItems, setAddedItems, viewOnly }: Props) {
           </>
         }
         action={
-          viewOnly ? (
+          viewOnly || PAJAUTIN_READ_ONLY ? (
             ""
           ) : (
             <IconButton

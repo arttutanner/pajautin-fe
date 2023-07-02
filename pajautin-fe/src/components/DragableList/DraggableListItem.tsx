@@ -14,7 +14,7 @@ import Diversity3Icon from "@mui/icons-material/Diversity3";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
-import { TYPE_COLORS } from "../../types/Constants";
+import { PAJAUTIN_READ_ONLY, TYPE_COLORS } from "../../types/Constants";
 export type DraggableListItemProps = {
   item: Workshop;
   index: number;
@@ -28,20 +28,28 @@ const DraggableListItem = ({
 }: DraggableListItemProps) => {
   //const classes = useStyles();
   return (
-    <Draggable draggableId={item.id + ""} index={index}>
+    <Draggable
+      isDragDisabled={PAJAUTIN_READ_ONLY}
+      draggableId={item.id + ""}
+      index={index}
+    >
       {(provided, snapshot) => (
         <ListItem
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           secondaryAction={
-            <IconButton
-              edge="end"
-              aria-label="delete"
-              onClick={() => onDelete()}
-            >
-              <DeleteIcon />
-            </IconButton>
+            PAJAUTIN_READ_ONLY ? (
+              ""
+            ) : (
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                onClick={() => onDelete()}
+              >
+                <DeleteIcon />
+              </IconButton>
+            )
           }
           // className={snapshot.isDragging ? classes.draggingListItem : ""}
         >

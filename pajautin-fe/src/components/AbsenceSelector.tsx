@@ -1,4 +1,5 @@
 import {
+  Alert,
   Card,
   CardContent,
   CardHeader,
@@ -14,7 +15,7 @@ import { useEffect, useState } from "react";
 import ExpandMore from "./ExpandMore";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AppService } from "../services/app.service";
-import { THEME_COLORS } from "../types/Constants";
+import { PAJAUTIN_READ_ONLY, THEME_COLORS } from "../types/Constants";
 
 interface Props {
   setPresentInProgram: (pres: boolean[]) => void;
@@ -51,7 +52,6 @@ function AbsenceSelector({
     p[slot] = present;
     setPresentInProgram([...p]);
     if (present) {
-      console.log("Masterswitch to false.");
       setMasterSwitch(false);
     }
     if (!p[0] && !p[1] && !p[2]) setMasterSwitch(true);
@@ -80,13 +80,21 @@ function AbsenceSelector({
             </ExpandMore>
           }
         />
+        {PAJAUTIN_READ_ONLY ? (
+          <Alert severity="warning">
+            Pajautin on katselutilassa, et voi muuttaa valintoja.
+          </Alert>
+        ) : (
+          ""
+        )}
         <Collapse in={expanded}>
           <CardContent>
-            Valitse aikavälit, jolloin osallitut ohjelmaan.
+            Valitse aikavälit, jolloin osallistut ohjelmaan.
             <Stack style={{ marginTop: "15px" }}>
               <FormControlLabel
                 control={
                   <Switch
+                    disabled={PAJAUTIN_READ_ONLY}
                     checked={presentInProgram[0]}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       setPresent(0, event.target.checked)
@@ -98,6 +106,7 @@ function AbsenceSelector({
               <FormControlLabel
                 control={
                   <Switch
+                    disabled={PAJAUTIN_READ_ONLY}
                     checked={presentInProgram[1]}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       setPresent(1, event.target.checked)
@@ -109,6 +118,7 @@ function AbsenceSelector({
               <FormControlLabel
                 control={
                   <Switch
+                    disabled={PAJAUTIN_READ_ONLY}
                     checked={presentInProgram[2]}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       setPresent(2, event.target.checked)
@@ -120,6 +130,7 @@ function AbsenceSelector({
               <FormControlLabel
                 control={
                   <Switch
+                    disabled={PAJAUTIN_READ_ONLY}
                     checked={masterSwitch}
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                       setAll(event.target.checked)

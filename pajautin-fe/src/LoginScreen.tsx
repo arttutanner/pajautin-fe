@@ -6,6 +6,7 @@ import {
   CardHeader,
   Container,
   Grid,
+  Link,
   Stack,
   TextField,
 } from "@mui/material";
@@ -38,12 +39,19 @@ function LoginScreen({ login, loginViewOnly, loginError }: Props) {
   };
 
   return (
-    <Container>
-      <Card style={{ marginTop: "20px" }}>
+    <Container style={{ marginTop: "70px" }}>
+      <Card>
         <CardHeader title="Tervetuloa Pajauttimeen!" />
         <CardContent>
           Pajautin on Johtajatulien työkalu, jonka avulla voit valita
-          ohjelmatoiveesi. [JOTAIN TEKSTIÄKIN TÄHÄN]
+          ohjelmatoiveesi. Tarkemmat ohjeet ohjelmatoiveiden valintaan löydät{" "}
+          <Link
+            href="https://johtajatulet.fi/seminaariohjelma/"
+            target="_blank"
+            rel="nopener"
+          >
+            täältä.
+          </Link>
         </CardContent>
       </Card>
 

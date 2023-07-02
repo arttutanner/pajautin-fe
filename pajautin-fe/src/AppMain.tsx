@@ -105,7 +105,10 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
     <>
       <Container
         maxWidth="xl"
-        sx={{ display: { xs: "none", sm: "none", md: "none", lg: "block" } }}
+        sx={{
+          display: { xs: "none", sm: "none", md: "none", lg: "block" },
+          marginTop: "50px",
+        }}
       >
         <Grid container spacing={2}>
           <Grid item md={2}>
@@ -151,6 +154,7 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
             lg: "none",
             xl: "none",
           },
+          marginTop: "60px",
         }}
       >
         <Grid container spacing={2}>

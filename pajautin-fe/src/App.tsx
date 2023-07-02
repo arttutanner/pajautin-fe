@@ -8,6 +8,7 @@ import { LoginStatus } from "./types/LoginStatus";
 import { Workshop } from "./types/Workshop";
 import { getUniqueKeywords } from "./util/keywordutil";
 import WorkshopItem from "./components/WorkshopItem";
+import { shuffle } from "./util/shuffle";
 
 function App() {
   const [wsItems, setWsItems] = useState<Workshop[]>([]);
@@ -27,7 +28,7 @@ function App() {
       let wsi = ws as Workshop[];
       wsi = wsi.sort((a, b) => a.id - b.id);
 
-      setWsItems(wsi);
+      setWsItems(shuffle(wsi));
       let kw = getUniqueKeywords(ws);
       setKeywords(kw);
     });

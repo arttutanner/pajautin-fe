@@ -19,7 +19,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { AppService } from "../services/app.service";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
-import { THEME_COLORS } from "../types/Constants";
+import { PAJAUTIN_READ_ONLY, THEME_COLORS } from "../types/Constants";
 
 interface Props {
   addedItems: Workshop[];
@@ -51,7 +51,6 @@ function SelectedWorkshops({
   };
 
   const removeAddedItem = (item: Workshop) => {
-    console.log("Item to be deleted (id):" + item.id);
     let newItems = removeObjectWithId(addedItems, item.id);
     setAddedItems([...newItems]);
   };
@@ -135,6 +134,13 @@ function SelectedWorkshops({
           </ExpandMore>
         }
       />
+      {PAJAUTIN_READ_ONLY ? (
+        <Alert severity="warning">
+          Pajautin on katselutilassa, et voi muuttaa valintoja.
+        </Alert>
+      ) : (
+        ""
+      )}
       <Collapse in={expanded}>
         <CardContent>
           {addedItems.length == 0 ? "Et ole valinnut yhtään ohjelmaa" : ""}
@@ -147,7 +153,7 @@ function SelectedWorkshops({
         {minimumNotSelected() ? (
           <Alert severity="warning">Valitse ainakin 10 ohjelmatoivetta.</Alert>
         ) : (
-          <Alert severity="success">Ainakin 10 ohjellmatoivetta valittu.</Alert>
+          <Alert severity="success">Ainakin 10 ohjelmatoivetta valittu.</Alert>
         )}
         {noSpeechesInAllCategories() ? (
           <Alert severity="warning">{noSpeechesInAllCategories()}</Alert>
@@ -156,9 +162,13 @@ function SelectedWorkshops({
             Puheenvuorotoive valittu kaikista aikaväleistä.
           </Alert>
         )}
-        <Alert severity="info">
-          Voit vaihtaa ohjelmatoiveiden järjestystä vetämällä.
-        </Alert>
+        {PAJAUTIN_READ_ONLY ? (
+          ""
+        ) : (
+          <Alert severity="info">
+            Voit vaihtaa ohjelmatoiveiden järjestystä vetämällä.
+          </Alert>
+        )}
       </Collapse>
     </Card>
   );

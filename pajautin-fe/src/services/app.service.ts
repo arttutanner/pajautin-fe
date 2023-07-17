@@ -35,6 +35,14 @@ export class AppService {
         return await (await axios.get('/api/presence')).data;
         
     }
+
+
+    public async getRegistration(): Promise<any> {
+
+        return await (await axios.get('/api/registration')).data;
+        
+    }
+    
     
 
     public async getWorkshops() : Promise<any> {

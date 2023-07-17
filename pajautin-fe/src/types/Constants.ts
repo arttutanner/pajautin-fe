@@ -44,7 +44,7 @@ export const TYPE_COLORS_LIGHT = [THEME_COLORS.LIESKA[10], THEME_COLORS.LOIMU[10
 export const TYPE_NAMES = ["Työpaja","Vertaisverstas","Puheenvuoro"];
 export const API_SERVER = "http://127.0.0.1:9998";
 
-export const PAJAUTIN_READ_ONLY=true;
+export const PAJAUTIN_READ_ONLY=false;
 
 
 

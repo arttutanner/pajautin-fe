@@ -11,7 +11,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { THEME_COLORS } from "./types/Constants";
+import { PAJAUTIN_READ_ONLY, THEME_COLORS } from "./types/Constants";
 
 interface Props {
   login: (userId: string) => void;
@@ -52,6 +52,17 @@ function LoginScreen({ login, loginViewOnly, loginError }: Props) {
           >
             täältä.
           </Link>
+          {PAJAUTIN_READ_ONLY ? (
+            <p style={{ color: "#ed672c", fontWeight: "bold" }}>
+              <br />
+              Ohjelmavalinta on nyt sulkeutunut. Voit katsoa tekemiäsi valintoja
+              Pajauttimesta, mutta et muuttaa niitä.
+              <br /> Lopullisen Johtajatulien aikataulusi näät Pajauttimesta
+              elokuun alkuun mennessä.
+            </p>
+          ) : (
+            ""
+          )}
         </CardContent>
       </Card>
 

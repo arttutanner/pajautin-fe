@@ -101,6 +101,13 @@ function AppMain({ loginStatus, wsList, wsKeywords }: Props) {
     });
   }, []);
 
+  useEffect(() => {
+    let appSrv: AppService = new AppService();
+    appSrv.getRegistration().then((p: number[]) => {
+      console.log(p);
+    });
+  }, []);
+
   return (
     <>
       <Container

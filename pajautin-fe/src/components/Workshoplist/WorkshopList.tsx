@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Workshop } from "../types/Workshop";
+import { Workshop } from "../../types/Workshop";
 import WorkshopItem from "./WorkshopItem";
 import Stack from "@mui/material/Stack";
 
-import { WorkshopFilter } from "../types/WorkshopFilter";
+import { WorkshopFilter } from "../../types/WorkshopFilter";
 import { Alert, Container } from "@mui/material";
 import Grid from "@mui/system/Unstable_Grid";
 
@@ -13,6 +13,8 @@ interface Props {
   addedItems: Workshop[];
   setAddedItems: (items: Workshop[]) => void;
   viewOnly: boolean;
+  selectSlot: number | null;
+  programRegisration: number[][] | null;
 }
 
 function doFilter(filter: WorkshopFilter, ws: Workshop) {
@@ -78,14 +80,35 @@ function doFilter(filter: WorkshopFilter, ws: Workshop) {
   return matchesFreetext && matchesRover && matchesTags && matchesType;
 }
 
+function doSlotFilter(
+  selectSlot: number,
+  programRegisration: number[][] | null,
+  ws: Workshop
+) {
+  if (programRegisration == null) return false;
+
+  let active = false;
+  if (ws.act1 && selectSlot == 1) active = true;
+  if (ws.act2 && selectSlot == 2) active = true;
+  if (ws.act3 && selectSlot == 3) active = true;
+
+  return active && programRegisration[ws.id][selectSlot - 1] < ws.maxSize;
+}
+
 function WorkshopList({
   items,
   filter,
   addedItems,
   setAddedItems,
   viewOnly,
+  selectSlot,
+  programRegisration,
 }: Props) {
-  const filteredWorkshops = items.filter((i) => doFilter(filter, i));
+  const filteredWorkshops = items.filter((i) => {
+    if (selectSlot == null || selectSlot == undefined)
+      return doFilter(filter, i);
+    else return doSlotFilter(selectSlot, programRegisration, i);
+  });
 
   return (
     <Stack gap={3}>
@@ -103,6 +126,13 @@ function WorkshopList({
             addedItems={addedItems}
             setAddedItems={setAddedItems}
             viewOnly={viewOnly}
+            freeSpace={
+              selectSlot == null
+                ? null
+                : programRegisration == null
+                ? null
+                : item.maxSize - programRegisration[item.id][selectSlot - 1]
+            }
           />
         ))
       )}

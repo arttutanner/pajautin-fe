@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Workshop } from "../types/Workshop";
+import { Workshop } from "../../types/Workshop";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -19,7 +19,7 @@ import {
   TYPE_COLORS,
   TYPE_COLORS_LIGHT,
   TYPE_NAMES,
-} from "../types/Constants";
+} from "../../types/Constants";
 import { AddCircle, ImageOutlined } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import RecordVoiceOverIcon from "@mui/icons-material/RecordVoiceOver";
@@ -33,9 +33,16 @@ interface Props {
   addedItems: Workshop[];
   setAddedItems: (items: Workshop[]) => void;
   viewOnly: boolean;
+  freeSpace: number | null;
 }
 
-function WorkshopItem({ item, addedItems, setAddedItems, viewOnly }: Props) {
+function WorkshopItem({
+  item,
+  addedItems,
+  setAddedItems,
+  viewOnly,
+  freeSpace,
+}: Props) {
   let itemAlreadyAdded = (item: Workshop) => {
     if (addedItems == null) return false;
     return addedItems.map((i) => i.id).includes(item.id);
@@ -104,7 +111,13 @@ function WorkshopItem({ item, addedItems, setAddedItems, viewOnly }: Props) {
         subheader={item.author}
         style={{ backgroundColor: TYPE_COLORS_LIGHT[item.type - 1] }}
       />
-
+      <CardContent>
+        {freeSpace == null ? (
+          ""
+        ) : (
+          <Typography>{freeSpace} paikkaa vapaana.</Typography>
+        )}
+      </CardContent>
       {item.type == 3 ? (
         <Stack>
           <Speech

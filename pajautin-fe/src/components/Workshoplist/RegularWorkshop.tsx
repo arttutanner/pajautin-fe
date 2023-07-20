@@ -1,6 +1,6 @@
 import { Link, Typography } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
-import { Workshop } from "../types/Workshop";
+import { Workshop } from "../../types/Workshop";
 
 interface Props {
   item: Workshop;

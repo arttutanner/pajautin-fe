@@ -1,0 +1,46 @@
+[
+{ 
+    "startTime" : "2023-08-26T07:00:00",
+    "endTime" : "2023-08-26T08:00:00",
+    "title" : "Aamupala",
+    "type" : "food",
+    "base" : true
+},
+
+{ 
+    "startTime" : "2023-08-26T08:00:00",
+    "endTime" : "2023-08-26T08:15:00",
+    "title" : "Lipunnosto",
+    "type" : "general",
+    "base" : true
+    
+},
+
+{ 
+    "startTime" : "2023-08-26T09:00:00",
+    "endTime" : "2023-08-26T10:30:00",
+    "title" : "Pääpuhujat 1 & 2",
+    "description" : "Lavalle nousee nn ja mm",
+    "type" : "main_program",
+    "base" : true
+},
+
+{ 
+    "startTime" : "2023-08-26T12:15:00",
+    "endTime" : "2023-08-26T14:00:00",
+    "title" : "Lounas",
+    "type" : "food",
+    "base" : true
+},
+
+{ 
+    "startTime" : "2023-08-26T17:00:00",
+    "endTime" : "2023-08-26T18:30:00",
+    "title" : "Päivällinen",
+    "type" : "food",
+    "base" : true
+}
+
+
+
+]

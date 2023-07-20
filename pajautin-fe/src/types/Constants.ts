@@ -43,6 +43,11 @@ export const TYPE_COLORS = [THEME_COLORS.LIESKA[100], THEME_COLORS.LOIMU[80], TH
 export const TYPE_COLORS_LIGHT = [THEME_COLORS.LIESKA[10], THEME_COLORS.LOIMU[10], THEME_COLORS.METSALAMPI[5]];
 export const TYPE_NAMES = ["Työpaja","Vertaisverstas","Puheenvuoro"];
 export const API_SERVER = "http://127.0.0.1:9998";
+export const SLOT_TIMES = [
+  { startTime : "2023-08-26T11:00:00", endTime : "2023-08-26T12:15" },
+  { startTime : "2023-08-26T14:00:00", endTime : "2023-08-26T15:15" },
+  { startTime : "2023-08-26T15:45:00", endTime : "2023-08-26T17:00" }
+]
 
 export const PAJAUTIN_READ_ONLY=false;
 

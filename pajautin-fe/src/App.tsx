@@ -7,8 +7,9 @@ import { API_SERVER } from "./types/Constants";
 import { LoginStatus } from "./types/LoginStatus";
 import { Workshop } from "./types/Workshop";
 import { getUniqueKeywords } from "./util/keywordutil";
-import WorkshopItem from "./components/WorkshopItem";
+import WorkshopItem from "./components/Workshoplist/WorkshopItem";
 import { shuffle } from "./util/shuffle";
+import { ScheduleEvent } from "./types/ScheduleEvent";
 
 function App() {
   const [wsItems, setWsItems] = useState<Workshop[]>([]);
@@ -20,6 +21,7 @@ function App() {
     lastName: "",
   });
   const [loginError, setLoginError] = useState<string>("");
+  const [schedule, setSchedule] = useState<ScheduleEvent[]>([]);
 
   useEffect(() => {
     let appSrv: AppService = new AppService();
@@ -31,6 +33,21 @@ function App() {
       setWsItems(shuffle(wsi));
       let kw = getUniqueKeywords(ws);
       setKeywords(kw);
+    });
+  }, []);
+
+  useEffect(() => {
+    let appSrv: AppService = new AppService();
+    appSrv.getSchedule().then((sc) => {
+      // Sort by start date
+      let sch = sc as ScheduleEvent[];
+      sch = sch.sort((a, b) => {
+        if (a.startTime > b.startTime) return 1;
+        if (b.startTime > a.startTime) return -1;
+        return 0;
+      });
+
+      setSchedule(sch);
     });
   }, []);
 
@@ -95,6 +112,8 @@ function App() {
           loginStatus={loginStatus}
           wsKeywords={keywords}
           wsList={wsItems}
+          schedule={schedule}
+          setSchedule={setSchedule}
         />
       ) : (
         <LoginScreen

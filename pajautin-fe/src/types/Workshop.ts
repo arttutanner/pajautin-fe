@@ -22,6 +22,9 @@ export type Workshop = {
     speechAuthor2: string;
     speechDescription2: string;
     link: string;
+    act1 : boolean,
+    act2 : boolean,
+    act3 : boolean
 
     
   };

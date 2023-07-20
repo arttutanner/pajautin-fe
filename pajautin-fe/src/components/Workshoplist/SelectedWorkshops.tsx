@@ -1,7 +1,7 @@
 import { DropResult } from "react-beautiful-dnd";
-import { Workshop } from "../types/Workshop";
-import { reorder } from "../util/draggableHelpers";
-import DraggableList from "./DragableList/DraggableList";
+import { Workshop } from "../../types/Workshop";
+import { reorder } from "../../util/draggableHelpers";
+import DraggableList from "../DragableList/DraggableList";
 import React, { useState } from "react";
 import {
   Alert,
@@ -14,12 +14,12 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { render } from "react-dom";
-import ExpandMore from "./ExpandMore";
+import ExpandMore from "../ExpandMore";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { AppService } from "../services/app.service";
+import { AppService } from "../../services/app.service";
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
-import { PAJAUTIN_READ_ONLY, THEME_COLORS } from "../types/Constants";
+import { PAJAUTIN_READ_ONLY, THEME_COLORS } from "../../types/Constants";
 
 interface Props {
   addedItems: Workshop[];

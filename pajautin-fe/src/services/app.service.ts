@@ -43,12 +43,22 @@ export class AppService {
         
     }
     
-    
+    public async getProgramRegistration(): Promise<any> {
+        return await (await axios.get('/api/program/registration')).data;
+        
+    }
 
     public async getWorkshops() : Promise<any> {
         const response = await fetch('/pajautin-data.json', {credentials: 'same-origin'});
         return await response.json();
     }
+
+
+    public async getSchedule() : Promise<any> {
+        const response = await fetch('/base-schedule.json', {credentials: 'same-origin'});
+        return await response.json();
+    }
+
 
     public async doLogin(userId : string) : Promise<any> {
 

@@ -75,6 +75,7 @@ function ProgramViewer({
               viewOnly={loginStatus.viewOnly}
               selectSlot={null}
               programRegisration={null}
+              registerProgramCallback={null}
             />
           </Grid>
           {loginStatus.viewOnly ? (
@@ -146,6 +147,7 @@ function ProgramViewer({
               viewOnly={loginStatus.viewOnly}
               selectSlot={null}
               programRegisration={null}
+              registerProgramCallback={null}
             />
           </Grid>
         </Grid>

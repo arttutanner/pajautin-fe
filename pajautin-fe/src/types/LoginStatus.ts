@@ -3,4 +3,5 @@ export type LoginStatus = {
     viewOnly : boolean;
     firstName: string | null;
     lastName: string | null;
+    
 };

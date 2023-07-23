@@ -15,6 +15,7 @@ interface Props {
   viewOnly: boolean;
   selectSlot: number | null;
   programRegisration: number[][] | null;
+  registerProgramCallback: ((program: Workshop, slot: number) => void) | null;
 }
 
 function doFilter(filter: WorkshopFilter, ws: Workshop) {
@@ -103,6 +104,7 @@ function WorkshopList({
   viewOnly,
   selectSlot,
   programRegisration,
+  registerProgramCallback,
 }: Props) {
   const filteredWorkshops = items.filter((i) => {
     if (selectSlot == null || selectSlot == undefined)
@@ -124,7 +126,14 @@ function WorkshopList({
             key={item.id}
             item={item}
             addedItems={addedItems}
-            setAddedItems={setAddedItems}
+            setAddedItems={
+              selectSlot == null
+                ? setAddedItems
+                : () => {
+                    if (registerProgramCallback != null)
+                      registerProgramCallback(item, selectSlot);
+                  }
+            }
             viewOnly={viewOnly}
             freeSpace={
               selectSlot == null

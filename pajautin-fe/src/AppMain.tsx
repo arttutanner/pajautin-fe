@@ -22,6 +22,7 @@ import ProgramViewer from "./components/ProgramViewer";
 import PersonalSchedule from "./components/Schedule/PersonalSchedule";
 import { ScheduleEvent } from "./types/ScheduleEvent";
 import { SLOT_TIMES } from "./types/Constants";
+import RegisterProgramDialog from "./components/Workshoplist/RegisterProgramDialog";
 
 interface Props {
   loginStatus: LoginStatus;
@@ -48,80 +49,17 @@ function AppMain({
 
   const [addedItems, setAddedItems] = useState<Workshop[]>([]);
 
+  const [dialogItem, setDialogItem] = useState<Workshop | null>(null);
+  const [dialogSlot, setDialogSlot] = useState<number>(0);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+
   const [presentInProgram, setPresentInProgramSt] = useState<boolean[]>([
     true,
     true,
     true,
   ]);
 
-  useEffect(() => {
-    let appSrv: AppService = new AppService();
-    appSrv.getPresent().then((p: boolean[]) => {
-      setPresentInProgramSt(p);
-      if (!p[0] && !p[1] && !p[2]) setMasterSwitch(true);
-      else setMasterSwitch(false);
-    });
-  }, []);
-
-  const setPresentInProgram = (p: boolean[]) => {
-    setPresentInProgramSt(p);
-    savePresence(p);
-  };
-
-  const [masterSwtich, setMasterSwitch] = useState<boolean>(false);
-
-  const showInfoText = (info: string) => {
-    setSaveInfoMsg(info);
-    setSaveInfoOpen(true);
-  };
-
-  const setAndSaveAddedItems = (savedWorkshops: Workshop[]) => {
-    let appSrv: AppService = new AppService();
-    appSrv.setPreferences(savedWorkshops.map((i) => i.id)).then((reply) => {
-      if ((reply.status = "ok")) {
-        showInfoText("Ohjelmavalinnat tallennettu " + reply.date);
-      } else {
-        showInfoText("Virhe ohjelmavalintojen tallennuksessa");
-      }
-    });
-    setAddedItems(savedWorkshops);
-  };
-
-  const savePresence = (pres: boolean[]) => {
-    let appSrv: AppService = new AppService();
-    appSrv.setPresent(pres).then((reply) => {
-      if ((reply.status = "ok")) {
-        showInfoText("Paikallaolo tallennettu " + reply.date);
-      } else {
-        showInfoText("Virhe paikallaolon tallennuksessa");
-      }
-    });
-  };
-
-  const showEmptySlotSelector = (slot: number) => {
-    let appSrv: AppService = new AppService();
-    appSrv.getProgramRegistration().then((reply) => {
-      setProgramRegistration(reply);
-      setSelectedSlot(slot);
-      setSelectedPage("slot_select");
-    });
-  };
-
-  useEffect(() => {
-    let appSrv: AppService = new AppService();
-
-    appSrv.getPreferences().then((prefs: number[]) => {
-      let setItems: Workshop[] = [];
-      prefs.forEach((p: number) => {
-        let ws = wsList.find((a) => a.id == p);
-        if (ws != null && ws != undefined) setItems.push(ws!);
-      });
-
-      setAddedItems(setItems);
-    });
-  }, []);
-
-  useEffect(() => {
+  const loadRegistration = (present: boolean[]) => {
     let appSrv: AppService = new AppService();
 
     appSrv.getRegistration().then((prg: number[]) => {
@@ -143,8 +81,8 @@ function AppMain({
             slot: i + 1,
           };
           tmpSchedule.push(se);
-        } else if (presentInProgram[i]) {
-          console.log(presentInProgram);
+        } else if (present[i]) {
+          console.log(present);
           let se: ScheduleEvent = {
             startTime: SLOT_TIMES[i].startTime,
             endTime: SLOT_TIMES[i].endTime,
@@ -181,6 +119,99 @@ function AppMain({
       });
       setSchedule([...tmpSchedule]);
       console.log(tmpSchedule);
+    });
+  };
+
+  useEffect(() => {
+    let appSrv: AppService = new AppService();
+    appSrv.getPresent().then((p: boolean[]) => {
+      setPresentInProgramSt(p);
+      if (!p[0] && !p[1] && !p[2]) setMasterSwitch(true);
+      else setMasterSwitch(false);
+
+      // Load registration after this to make things work right
+      loadRegistration(p);
+    });
+  }, []);
+
+  const setPresentInProgram = (p: boolean[]) => {
+    setPresentInProgramSt(p);
+    savePresence(p);
+  };
+
+  const [masterSwtich, setMasterSwitch] = useState<boolean>(false);
+
+  const showInfoText = (info: string) => {
+    setSaveInfoMsg(info);
+    setSaveInfoOpen(true);
+  };
+
+  const setAndSaveAddedItems = (savedWorkshops: Workshop[]) => {
+    let appSrv: AppService = new AppService();
+    appSrv.setPreferences(savedWorkshops.map((i) => i.id)).then((reply) => {
+      if (reply.status == "ok") {
+        showInfoText("Ohjelmavalinnat tallennettu " + reply.date);
+      } else {
+        showInfoText("Virhe ohjelmavalintojen tallennuksessa");
+      }
+    });
+    setAddedItems(savedWorkshops);
+  };
+
+  const savePresence = (pres: boolean[]) => {
+    let appSrv: AppService = new AppService();
+    appSrv.setPresent(pres).then((reply) => {
+      if (reply.status == "ok") {
+        showInfoText("Paikallaolo tallennettu " + reply.date);
+      } else {
+        showInfoText("Virhe paikallaolon tallennuksessa");
+      }
+    });
+  };
+
+  const showEmptySlotSelector = (slot: number) => {
+    let appSrv: AppService = new AppService();
+    appSrv.getProgramRegistration().then((reply) => {
+      setProgramRegistration(reply);
+      setSelectedSlot(slot);
+      setSelectedPage("slot_select");
+    });
+  };
+
+  const showProgramDialog = (program: Workshop, slot: number) => {
+    setDialogItem(program);
+    setDialogSlot(slot);
+    setDialogOpen(true);
+  };
+
+  const saveProgramRegistration = (programId: number, slot: number) => {
+    console.log("Add program " + programId + " to slot " + slot);
+    let appSrv: AppService = new AppService();
+    appSrv.saveRegistration(slot, programId).then((reply) => {
+      if (reply.status == "ok") {
+        showInfoText("Ohjelmavalinta tallennettu " + reply.date);
+        loadRegistration(presentInProgram);
+        setDialogOpen(false);
+        setSelectedPage("schedule");
+      } else {
+        showInfoText(
+          "Virhe ohjelmavalinnan tallennuksessa:" + reply.errorMessage
+        );
+      }
+    });
+  };
+
+  useEffect(() => {
+    let appSrv: AppService = new AppService();
+
+    appSrv.getPreferences().then((prefs: number[]) => {
+      let setItems: Workshop[] = [];
+      prefs.forEach((p: number) => {
+        let ws = wsList.find((a) => a.id == p);
+        if (ws != null && ws != undefined) setItems.push(ws!);
+      });
+
+      setAddedItems(setItems);
     });
   }, []);
 
@@ -230,6 +261,7 @@ function AppMain({
               viewOnly={false}
               selectSlot={selectedSlot}
               programRegisration={programRegistration}
+              registerProgramCallback={showProgramDialog}
             />
           </Stack>
         </Container>
@@ -252,6 +284,13 @@ function AppMain({
         message={saveInfoMsg}
         autoHideDuration={2000}
         onClose={() => setSaveInfoOpen(false)}
+      />
+      <RegisterProgramDialog
+        item={dialogItem}
+        slot={dialogSlot}
+        addItemCallback={saveProgramRegistration}
+        closeCallback={() => setDialogOpen(false)}
+        open={dialogOpen}
       />
     </>
   );

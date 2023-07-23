@@ -42,6 +42,12 @@ export class AppService {
         return await (await axios.get('/api/registration')).data;
         
     }
+
+    public async saveRegistration(sl : number, progId : number) : Promise<any> {
+        var pojo = { slot : sl, programId : progId};
+        return await (await axios.post("/api/registration/",pojo)).data;
+        
+    }
     
     public async getProgramRegistration(): Promise<any> {
         return await (await axios.get('/api/program/registration')).data;

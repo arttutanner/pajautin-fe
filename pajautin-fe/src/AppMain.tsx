@@ -41,7 +41,9 @@ function AppMain({
 }: Props) {
   const [saveInfoOpen, setSaveInfoOpen] = useState<boolean>(false);
   const [saveInfoMsg, setSaveInfoMsg] = useState<string>("");
-  const [selectedPage, setSelectedPage] = useState<string>("schedule");
+  const [selectedPage, setSelectedPage] = useState<string>(
+    loginStatus.loggedIn ? "schedule" : "viewonly"
+  );
   const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
   const [programRegistration, setProgramRegistration] = useState<number[][]>(
     []
@@ -226,7 +228,6 @@ function AppMain({
         <Container
           maxWidth="xl"
           sx={{
-            display: { xs: "none", sm: "none", md: "none", lg: "block" },
             marginTop: "50px",
           }}
         >

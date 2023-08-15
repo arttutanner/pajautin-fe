@@ -17,7 +17,7 @@ function ScheduleEventItem({ item, showEmptySlotSelector }: Props) {
     let wDay = "";
     if (start.getDay() == 0) wDay = "Su";
     if (start.getDay() == 5) wDay = "Pe";
-    if (start.getDay() == 6) wDay = "Pe";
+    if (start.getDay() == 6) wDay = "La";
 
     return (
       wDay +
@@ -35,6 +35,7 @@ function ScheduleEventItem({ item, showEmptySlotSelector }: Props) {
   let getColor = () => {
     if (item.type == "general") return THEME_COLORS.HIILI[50];
     if (item.type == "main_program") return THEME_COLORS.LIESKA[80];
+    if (item.type == "side_program") return THEME_COLORS.METSALAMPI[80];
     if (item.type == "food") return THEME_COLORS.LOIMU[80];
     return "white";
   };

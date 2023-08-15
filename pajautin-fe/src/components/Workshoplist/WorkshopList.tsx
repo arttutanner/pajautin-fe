@@ -93,6 +93,9 @@ function doSlotFilter(
   if (ws.act2 && selectSlot == 2) active = true;
   if (ws.act3 && selectSlot == 3) active = true;
 
+  if (programRegisration[ws.id] == undefined) return true;
+  if (programRegisration[ws.id][selectSlot - 1] == undefined) return true;
+
   return active && programRegisration[ws.id][selectSlot - 1] < ws.maxSize;
 }
 
@@ -140,6 +143,8 @@ function WorkshopList({
                 ? null
                 : programRegisration == null
                 ? null
+                : programRegisration[item.id] == null
+                ? item.maxSize
                 : item.maxSize - programRegisration[item.id][selectSlot - 1]
             }
           />

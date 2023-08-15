@@ -1,4 +1,4 @@
-import { CardHeader } from "@mui/material";
+import { Alert, CardHeader } from "@mui/material";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import Stack from "react-bootstrap/esm/Stack";
@@ -20,7 +20,10 @@ function PersonalSchedule({ schedule, showEmptySlotSelector }: Props) {
           subheader="Henkilökohtainen aikataulusi"
           style={{ backgroundColor: "#ddd" }}
         />
-        <Stack gap={3}>
+        <Alert severity="info">
+          Päivän hyvät työt ja elämysohjelmat päivittyvät aikatauluun myöhemmin.
+        </Alert>
+        <Stack gap={3} style={{ marginTop: "20px" }}>
           {schedule.map((item) => (
             <ScheduleEventItem
               item={item}

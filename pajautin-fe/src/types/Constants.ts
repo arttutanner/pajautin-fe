@@ -50,6 +50,23 @@ export const SLOT_TIMES = [
 ]
 
 export const PAJAUTIN_READ_ONLY=false;
+export const AFTER_REGISTRATION_OPEN = false;
+
+export const MAP_COLORS = {
+  "experience" :  "#7CB342",
+  "other" : "#757575",
+  "stage" :"#817717",
+  "E" : "#006064",
+  "D" : "#f57c00",
+  "G" : "#01579b",
+  "F" : "#c2185b",
+  "I" : "#4e342e",
+  "A" : "#880e4f",
+  "H" : "#a52714",
+  "J" : "#673ab7",
+  "B" : "#1a237e",
+  "C" :  "#ffea00"
+}  
 
 
 

@@ -41,12 +41,12 @@ function App() {
     appSrv.getSchedule().then((sc) => {
       // Sort by start date
       let sch = sc as ScheduleEvent[];
+
       sch = sch.sort((a, b) => {
         if (a.startTime > b.startTime) return 1;
         if (b.startTime > a.startTime) return -1;
         return 0;
       });
-
       setSchedule(sch);
     });
   }, []);

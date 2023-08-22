@@ -1,0 +1,235 @@
+
+
+[
+
+
+    { 
+        "startTime" : "2023-08-25T18:00:00",
+        "endTime" : "2023-08-25T21:00:00",
+        "title" : "Nuotioringit",
+        "type" : "side_program",
+        "base" : true
+    },
+    
+        
+    
+    { 
+        "startTime" : "2023-08-25T19:30:00",
+        "endTime" : "2023-08-25T22:00:00",
+        "title" : "Iltapala",
+        "type" : "food",
+        "base" : true
+    
+    },
+    
+        
+    
+    { 
+        "startTime" : "2023-08-25T21:00:00",
+        "endTime" : "2023-08-25T22:15:00",
+        "title" : "Avajaiset",
+        "type" : "main_program",
+        "base" : true
+    },
+    
+        
+    
+    { 
+        "startTime" : "2023-08-25T22:30:00",
+        "endTime" : "2023-08-25T00:00:00",
+        "title" : "Metsäkino",
+        "type" : "side_program",
+        "base" : true
+    },
+    
+    
+    { 
+        "startTime" : "2023-08-26T00:00:00",
+        "endTime" : "2023-08-26T07:00:00",
+        "title" : "Hiljaisuus",
+        "type" : "general",
+        "base" : true
+    },    
+
+
+    { 
+    "startTime" : "2023-08-26T07:00:00",
+    "endTime" : "2023-08-26T08:00:00",
+    "title" : "Aamupala",
+    "type" : "food",
+    "base" : true
+    },
+
+    { 
+    "startTime" : "2023-08-26T08:00:00",
+    "endTime" : "2023-08-26T08:15:00",
+    "title" : "Lipunnosto",
+    "type" : "general",
+    "base" : true
+
+    },
+
+    { 
+    "startTime" : "2023-08-26T09:00:00",
+    "endTime" : "2023-08-26T10:30:00",
+    "title" : "Pääpuhujat 1 & 2",
+    "description" : "Luovuuden lava",
+    "type" : "main_program",
+    "base" : true
+    },
+
+    { 
+    "startTime" : "2023-08-26T12:15:00",
+    "endTime" : "2023-08-26T14:00:00",
+    "title" : "Lounas",
+    "type" : "food",
+    "base" : true
+    },
+
+    { 
+    "startTime" : "2023-08-26T17:00:00",
+    "endTime" : "2023-08-26T18:30:00",
+    "title" : "Päivällinen",
+    "type" : "food",
+    "base" : true
+    },
+
+    { 
+    "startTime" : "2023-08-26T20:30:00",
+    "endTime" : "2023-08-26T22:00:00",
+    "title" : "Iltapala",
+    "type" : "food",
+    "base" : true
+    },
+
+    { 
+    "startTime" : "2023-08-26T21:00:00",
+    "endTime" : "2023-08-26T21:30:00",
+    "title" : "DJ-Etkot",
+    "type" : "side_program",
+    "base" : true
+    },
+
+    { 
+    "startTime" : "2023-08-26T21:30:00",
+    "endTime" : "2023-08-26T23:00:00",
+    "title" : "Bändi",
+    "type" : "side_program",
+    "base" : true
+    },
+
+    { 
+        "startTime" : "2023-08-26T23:00:00",
+        "endTime" : "2023-08-26T23:45:00",
+        "title" : "DJ-Jatkot",
+        "type" : "side_program",
+        "base" : true
+    },
+    { 
+        "startTime" : "2023-08-26T23:00:00",
+        "endTime" : "2023-08-27T00:00:00",
+        "title" : "Yöelämykset ja omatoiminuotiot",
+        "type" : "side_program",
+        "base" : true
+    }, 
+
+    { 
+    "startTime" : "2023-08-26T00:00:00",
+    "endTime" : "2023-08-27T07:00:00",
+    "title" : "Hiljaisuus",
+    "type" : "general",
+    "base" : true
+    },
+
+
+    { 
+    "startTime" : "2023-08-27T07:00:00",
+    "endTime" : "2023-08-27T08:30:00",
+    "title" : "Aamiainen",
+    "type" : "food",
+    "base" : true
+    },
+
+
+
+    { 
+    "startTime" : "2023-08-27T07:30:00",
+    "endTime" : "2023-08-27T08:00:00",
+    "title" : "Hartaus",
+    "type" : "general",
+    "base" : true
+
+    },
+
+
+
+    { 
+    "startTime" : "2023-08-27T08:00:00",
+    "endTime" : "2023-08-27T08:30:00",
+    "title" : "Lipunnosto",
+    "type" : "general",
+    "base" : true
+    },
+
+
+
+    { 
+    "startTime" : "2023-08-27T08:30:00",
+    "endTime" : "2023-08-27T09:00:00",
+    "title" : "Yhteislaulutilaisuus",
+    "type" : "general",
+    "base" : true
+    },
+
+
+
+    { 
+    "startTime" : "2023-08-27T09:00:00",
+    "endTime" : "2023-08-27T09:45:00",
+    "title" : "Erätauko: maailman suuri dialogi",
+    "type" : "main_program",
+    "base" : true
+    },
+
+
+
+    { 
+    "startTime" : "2023-08-27T10:15:00",
+    "endTime" : "2023-08-27T11:45:00",
+    "title" : "Pääpuhujat 3 ja 4",
+    "description" : "Luovuuden lava",
+    "type" : "main_program",
+    "base" : true
+    },
+
+
+
+    { 
+    "startTime" : "2023-08-27T12:00:00",
+    "endTime" : "2023-08-27T12:30:00",
+    "title" : "Päättäjäiset",
+    "type" : "main_program",
+    "base" : true
+    },
+
+
+
+    { 
+    "startTime" : "2023-08-27T12:00:00",
+    "endTime" : "2023-08-27T14:00:00",
+    "title" : "Lounas",
+    "type" : "food",
+    "base" : true
+    },
+
+
+
+    { 
+    "startTime" : "2023-08-27T14:00:00",
+    "endTime" : "2023-08-27T14:00:00",
+    "title" : "Tapahtuma päättyy",
+    "type" : "general",
+    "base" : true
+    }
+
+]

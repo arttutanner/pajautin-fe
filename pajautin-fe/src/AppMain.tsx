@@ -42,7 +42,7 @@ function AppMain({
   const [saveInfoOpen, setSaveInfoOpen] = useState<boolean>(false);
   const [saveInfoMsg, setSaveInfoMsg] = useState<string>("");
   const [selectedPage, setSelectedPage] = useState<string>(
-    loginStatus.loggedIn ? "schedule" : "viewonly"
+    loginStatus.loggedIn ? "schedule" : "viewonlycd "
   );
   const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
   const [programRegistration, setProgramRegistration] = useState<number[][]>(
@@ -74,10 +74,10 @@ function AppMain({
           let se: ScheduleEvent = {
             startTime: SLOT_TIMES[i].startTime,
             endTime: SLOT_TIMES[i].endTime,
-            title: wws.name,
+            title: "(" + wws.id + ") " + wws.name,
             description: wws.author,
             type: "main_program",
-            location: "Sijainti julkaistaan myöhemmin",
+            location: wws.location,
             workshopId: wws.id,
             base: false,
             slot: i + 1,
@@ -114,13 +114,18 @@ function AppMain({
           tmpSchedule.push(se);
         }
       }
-      tmpSchedule = tmpSchedule.sort((a, b) => {
-        if (a.startTime > b.startTime) return 1;
-        if (b.startTime > a.startTime) return -1;
-        return 0;
+
+      appSrv.getOtherSchedule().then((osc) => {
+        tmpSchedule.push(...osc);
+
+        tmpSchedule = tmpSchedule.sort((a, b) => {
+          if (a.startTime > b.startTime) return 1;
+          if (b.startTime > a.startTime) return -1;
+          return 0;
+        });
+
+        setSchedule([...tmpSchedule]);
       });
-      setSchedule([...tmpSchedule]);
-      console.log(tmpSchedule);
     });
   };
 

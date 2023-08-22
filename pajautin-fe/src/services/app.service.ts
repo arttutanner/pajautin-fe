@@ -61,7 +61,12 @@ export class AppService {
 
 
     public async getSchedule() : Promise<any> {
-        const response = await fetch('/base-schedule.json', {credentials: 'same-origin'});
+        const response = await fetch('/base-schedule-3.json', {credentials: 'same-origin'});
+        return await response.json();
+    }
+
+    public async getOtherSchedule() : Promise<any> {
+        const response = await fetch('/api/otherevents', {credentials: 'same-origin'});
         return await response.json();
     }
 

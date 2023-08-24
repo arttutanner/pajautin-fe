@@ -114,12 +114,15 @@ function ScheduleEventItem({
         ""
       ) : (
         <CardContent>
-          <Typography component="div">{item.description}</Typography>
-          {item.type == "empty" ||
-          (item.workshopId != undefined &&
-            item.workshopId >= 300 &&
-            swapAllowed &&
-            AFTER_REGISTRATION_OPEN) ? (
+          <Typography
+            component="div"
+            dangerouslySetInnerHTML={{ __html: item.description }}
+          ></Typography>
+          {(item.type == "empty" ||
+            (item.workshopId != undefined &&
+              item.workshopId >= 300 &&
+              swapAllowed)) &&
+          AFTER_REGISTRATION_OPEN ? (
             <Button
               variant="contained"
               title={swapAllowed ? "Vaihda ohjelma" : "Valitse ohjelma"}

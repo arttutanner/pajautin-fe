@@ -15,6 +15,7 @@ export type Workshop = {
     maxSize : number;
     imgUrl: string;
     imgUrl2: string;
+    location: string;
     speechName1 : string;
     speechAuthor1: string;
     speechDescription1: string;
@@ -22,9 +23,10 @@ export type Workshop = {
     speechAuthor2: string;
     speechDescription2: string;
     link: string;
-    act1 : boolean,
-    act2 : boolean,
-    act3 : boolean
+    act1 : boolean;
+    act2 : boolean;
+    act3 : boolean;
+    
 
     
   };

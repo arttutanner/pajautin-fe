@@ -21,7 +21,7 @@ import AbsenceSelector from "./components/AbsenceSelector";
 import ProgramViewer from "./components/ProgramViewer";
 import PersonalSchedule from "./components/Schedule/PersonalSchedule";
 import { ScheduleEvent } from "./types/ScheduleEvent";
-import { SLOT_TIMES } from "./types/Constants";
+import { AFTER_REGISTRATION_OPEN, SLOT_TIMES } from "./types/Constants";
 import RegisterProgramDialog from "./components/Workshoplist/RegisterProgramDialog";
 
 interface Props {
@@ -90,7 +90,10 @@ function AppMain({
             endTime: SLOT_TIMES[i].endTime,
             title: "Tyhjä aikaväli",
             description:
-              "Voit valita tähän aikaväliin ohjelman vapaana olevista ohjelmista.",
+              "Voit valita tähän aikaväliin ohjelman vapaana olevista ohjelmista" +
+              (AFTER_REGISTRATION_OPEN == false
+                ? " tapahtuman osallistujapalvelupisteellä."
+                : "."),
             type: "empty",
             location: null,
             workshopId: null,
